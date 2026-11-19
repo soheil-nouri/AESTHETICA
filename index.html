@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aesthetica // Visual Inspiration & Design Taste Library</title>
+  <style>
+    :root {
+      --bg: #090a0f;
+      --bg-card: #13151d;
+      --bg-card-hover: #1a1e2b;
+      --surface: #1a1c26;
+      --surface-border: #262a38;
+      --surface-border-subtle: #1e2230;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.25);
+      --accent-hover: #60a5fa;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+      --shadow-md: 0 10px 25px rgba(0,0,0,0.4);
+      --shadow-lg: 0 20px 45px rgba(0,0,0,0.55);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --surface: #f1f5f9;
+      --surface-border: #e2e8f0;
+      --surface-border-subtle: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      --accent: #2563eb;
+      --accent-glow: rgba(37, 99, 235, 0.15);
+      --accent-hover: #1d4ed8;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 10px 25px rgba(0,0,0,0.08);
+      --shadow-lg: 0 20px 45px rgba(0,0,0,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface-border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 10, 15, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    [data-theme="light"] header {
+      background: rgba(248, 250, 252, 0.88);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+    .brand-info h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .brand-info p {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    /* Search & Controls */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 680px;
+      justify-content: flex-end;
+    }
+    .search-wrapper {
+      position: relative;
+      flex: 1;
+      max-width: 400px;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-full);
+      padding: 10px 16px 10px 38px;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: var(--transition);
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      color: var(--text-dim);
+      pointer-events: none;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--surface-border);
+      background: var(--bg-card);
+      color: var(--text);
+      transition: var(--transition);
+      white-space: nowrap;
+      user-select: none;
+    }
+    .btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--text-dim);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      justify-content: center;
+      border-radius: var(--radius-full);
+    }
+
+    /* Sub-nav Category Pills */
+    .filter-bar {
+      padding: 14px 28px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--surface-border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--bg-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .filter-pill:hover {
+      color: var(--text);
+      border-color: var(--text-dim);
+    }
+    .filter-pill.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 2px 10px var(--accent-glow);
+    }
+    .filter-count {
+      display: inline-block;
+      padding: 1px 6px;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .filter-pill.active .filter-count {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Layout Containers */
+    main {
+      flex: 1;
+      padding: 24px 28px 60px;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* View Switcher Bar */
+    .view-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .view-title-group h2 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .view-title-group p {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .tab-switch {
+      display: flex;
+      background: var(--bg-card);
+      padding: 4px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--surface-border);
+    }
+    .tab-btn {
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: var(--radius-full);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .tab-btn.active {
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Inspiration Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.2s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--text-dim);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-media-wrapper {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.35s ease;
+    }
+    .card:hover .card-media {
+      transform: scale(1.03);
+    }
+
+    .card-category-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 4px 10px;
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      letter-spacing: 0.02em;
+      z-index: 2;
+    }
+
+    .card-actions-overlay {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: var(--transition);
+      z-index: 3;
+    }
+    .card:hover .card-actions-overlay {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-action-btn {
+      flex: 1;
+      padding: 8px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .card-action-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .card-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 10px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .card-substyle {
+      font-size: 12px;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+    .card-summary {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid var(--surface-border-subtle);
+    }
+    .palette-swatches {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .color-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .color-swatch:hover {
+      transform: scale(1.3);
+    }
+    .card-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .card-tag {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      background: var(--surface);
+      color: var(--text-dim);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Style Encyclopedia View */
+    .encyclopedia-view {
+      display: none;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .encyclopedia-view.active {
+      display: flex;
+    }
+    .style-section {
+      background: var(--bg-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .style-section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--surface-border-subtle);
+      padding-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .style-title-group h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .style-tagline {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+    .style-grid-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .style-grid-details { grid-template-columns: 1fr; }
+    }
+    .style-col h4 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .style-col p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .feature-list li {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.45;
+    }
+    .feature-list li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .vocab-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .vocab-chip {
+      padding: 4px 10px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .vocab-chip:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+    .style-samples-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-top: 8px;
+    }
+    .style-sample-thumb {
+      width: 140px;
+      height: 90px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      cursor: pointer;
+      border: 1px solid var(--surface-border);
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .style-sample-thumb:hover {
+      transform: scale(1.04);
+      border-color: var(--accent);
+    }
+
+    /* Modal Inspector */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .modal-backdrop.active {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-window {
+      background: var(--bg-card);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 1280px;
+      height: 90vh;
+      max-height: 860px;
+      display: flex;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.97);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-backdrop.active .modal-window {
+      transform: scale(1);
+    }
+    @media (max-width: 960px) {
+      .modal-window {
+        flex-direction: column;
+        height: 94vh;
+      }
+    }
+
+    /* Modal Left: Image Preview */
+    .modal-media-pane {
+      flex: 1.1;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border-right: 1px solid var(--surface-border);
+      overflow: hidden;
+    }
+    .modal-image-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: auto;
+    }
+    .modal-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      transition: transform 0.25s ease;
+    }
+    .modal-image.zoomed {
+      max-width: none;
+      max-height: none;
+      cursor: zoom-out;
+    }
+    .modal-media-footer {
+      padding: 12px 18px;
+      background: rgba(15, 23, 42, 0.7);
+      border-top: 1px solid var(--surface-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .modal-nav-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Modal Right: Analysis & Tools */
+    .modal-info-pane {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-card);
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--surface-border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .modal-title-group h2 {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .modal-badge-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .modal-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      background: var(--surface);
+      color: var(--accent);
+      border: 1px solid var(--surface-border);
+    }
+    .close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .close-btn:hover {
+      color: var(--text);
+      background: var(--bg-card-hover);
+    }
+
+    /* Modal Tabs */
+    .modal-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--surface-border);
+      padding: 0 24px;
+      background: var(--bg);
+    }
+    .modal-tab-btn {
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-tab-btn:hover {
+      color: var(--text);
+    }
+    .modal-tab-btn.active {
+      color: var(--accent);
+    }
+    .modal-tab-btn.active::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    /* Modal Body Content */
+    .modal-tab-content {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Tab: Breakdown */
+    .breakdown-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+    .breakdown-card h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .breakdown-card p {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .palette-grid {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .palette-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--surface-border);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .palette-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .palette-color-box {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .palette-hex {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text);
+    }
+
+    /* Tab: Prompt & Brief */
+    .code-box-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .code-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-top-left-radius: var(--radius-sm);
+      border-top-right-radius: var(--radius-sm);
+      border-bottom: none;
+      font-size: 12px;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+    .code-box {
+      background: #07080c;
+      border: 1px solid var(--surface-border);
+      border-bottom-left-radius: var(--radius-sm);
+      border-bottom-right-radius: var(--radius-sm);
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: #e2e8f0;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      max-height: 380px;
+    }
+    [data-theme="light"] .code-box {
+      background: #f8fafc;
+      color: #0f172a;
+    }
+
+    .modal-action-bar {
+      padding: 16px 24px;
+      border-top: 1px solid var(--surface-border);
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 20px;
+      border-radius: var(--radius-full);
+      background: #10b981;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Taste Cultivation Banner */
+    .taste-banner {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.08));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: var(--radius-md);
+      padding: 16px 22px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .taste-banner-text h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .taste-banner-text p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .taste-stats {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .taste-stat-item {
+      text-align: right;
+    }
+    .taste-stat-num {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--accent);
+    }
+    .taste-stat-label {
+      font-size: 10.5px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      display: none;
+    }
+    .empty-state h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .empty-state p {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* Utility SVGs */
+    svg { vertical-align: middle; }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header -->
+  <header>
+    <div class="brand" onclick="filterByCategory('all')">
+      <div class="brand-icon">A</div>
+      <div class="brand-info">
+        <h1>AESTHETICA</h1>
+        <p>Inspiration & Taste Library</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="search-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search styles, keywords, colors, techniques..." autocomplete="off">
+      </div>
+
+      <button class="btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+        <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg>
+        <span id="themeText">Theme</span>
+      </button>
+
+      <button class="btn btn-primary" id="openStyleGuideBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        Style Encyclopedia
+      </button>
+    </div>
+  </header>
+
+  <!-- Filter Pills Bar -->
+  <nav class="filter-bar" id="categoryFilterBar">
+    <button class="filter-pill active" onclick="filterByCategory('all')">
+      All Inspirations <span class="filter-count" id="totalCountBadge">21</span>
+    </button>
+    <!-- Dynamic category pills injected by JS -->
+  </nav>
+
+  <main>
+    <!-- Taste Cultivation Banner -->
+    <div class="taste-banner">
+      <div class="taste-banner-text">
+        <h3>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          Curated Visual Knowledge Base
+        </h3>
+        <p>Turn screenshots into reusable generative prompts, engineering briefs, and refined design vocabulary.</p>
+      </div>
+      <div class="taste-stats">
+        <div class="taste-stat-item">
+          <div class="taste-stat-num" id="statInspirations">21</div>
+          <div class="taste-stat-label">Inspirations</div>
+        </div>
+        <div class="taste-stat-item">
+          <div class="taste-stat-num" id="statStyles">13</div>
+          <div class="taste-stat-label">Design Styles</div>
+        </div>
+        <div class="taste-stat-item">
+          <div class="taste-stat-num" id="statKeywords">85+</div>
+          <div class="taste-stat-label">Curated Terms</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Switcher -->
+    <div class="view-header">
+      <div class="view-title-group">
+        <h2 id="currentViewTitle">All Visual References</h2>
+        <p id="currentViewSubtitle">Showing 21 categorized references</p>
+      </div>
+      <div class="tab-switch">
+        <button class="tab-btn active" id="viewGridBtn" onclick="switchMainView('grid')">Visual Gallery</button>
+        <button class="tab-btn" id="viewEncyclopediaBtn" onclick="switchMainView('encyclopedia')">Style Encyclopedia</button>
+      </div>
+    </div>
+
+    <!-- Gallery View -->
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Dynamic Cards -->
+    </div>
+
+    <!-- Empty Search State -->
+    <div class="empty-state" id="emptyState">
+      <h3>No matching inspirations found</h3>
+      <p>Try searching for terms like "glassmorphism", "bento", "minimal", "fintech", or "tactile".</p>
+    </div>
+
+    <!-- Encyclopedia View -->
+    <div class="encyclopedia-view" id="encyclopediaView">
+      <!-- Dynamic Style Sections -->
+    </div>
+  </main>
+
+  <!-- Modal Inspector -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-window">
+      <!-- Media Pane -->
+      <div class="modal-media-pane">
+        <div class="modal-image-container">
+          <img class="modal-image" id="modalImage" src="" alt="Reference Image" title="Click to zoom">
+        </div>
+        <div class="modal-media-footer">
+          <span id="modalFilename">filename.jpg</span>
+          <div class="modal-nav-btns">
+            <button class="btn btn-icon" id="prevInspBtn" title="Previous Reference (Left Arrow)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"></path></svg>
+            </button>
+            <button class="btn btn-icon" id="nextInspBtn" title="Next Reference (Right Arrow)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Pane -->
+      <div class="modal-info-pane">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <h2 id="modalTitle">Reference Title</h2>
+            <div class="modal-badge-row">
+              <span class="modal-badge" id="modalCategoryBadge">Category</span>
+              <span class="modal-badge" id="modalSubStyle" style="color: var(--text-dim);">Sub-style</span>
+            </div>
+          </div>
+          <button class="close-btn" id="closeModalBtn" title="Close (Esc)">&times;</button>
+        </div>
+
+        <div class="modal-tabs">
+          <button class="modal-tab-btn active" onclick="switchModalTab('breakdown')">Design Breakdown</button>
+          <button class="modal-tab-btn" onclick="switchModalTab('prompt')">AI Image Prompt</button>
+          <button class="modal-tab-btn" onclick="switchModalTab('brief')">Full Design Brief</button>
+        </div>
+
+        <div class="modal-tab-content">
+          <!-- Tab 1: Breakdown -->
+          <div id="tabContentBreakdown" style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="breakdown-card">
+              <h4>Visual Direction & Style Identification</h4>
+              <p id="modalStyleDesc"></p>
+            </div>
+
+            <div class="breakdown-card">
+              <h4>Composition & Layout Architecture</h4>
+              <p id="modalComposition"></p>
+            </div>
+
+            <div class="breakdown-card">
+              <h4>Lighting & Materiality</h4>
+              <p id="modalLighting"></p>
+            </div>
+
+            <div class="breakdown-card">
+              <h4>Typography Direction</h4>
+              <p id="modalTypography"></p>
+            </div>
+
+            <div class="breakdown-card">
+              <h4>Key Design Techniques</h4>
+              <p id="modalTechniques"></p>
+            </div>
+
+            <div class="breakdown-card">
+              <h4>Curated Color Palette (Click hex to copy)</h4>
+              <div class="palette-grid" id="modalPaletteGrid"></div>
+            </div>
+
+            <div class="breakdown-card">
+              <h4>Associated Terminology & Keywords</h4>
+              <div class="vocab-chips" id="modalKeywordsGrid"></div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Image Prompt -->
+          <div id="tabContentPrompt" style="display: none; flex-direction: column; gap: 14px; flex: 1;">
+            <p style="font-size: 13px; color: var(--text-muted);">
+              Use this tuned prompt in Midjourney v6, Stable Diffusion, or DALL-E 3 to generate cohesive hero graphics or companion visuals matching this reference style:
+            </p>
+            <div class="code-box-wrapper">
+              <div class="code-box-header">
+                <span>MIDJOURNEY / SD PROMPT</span>
+                <span id="promptCharCount">0 chars</span>
+              </div>
+              <div class="code-box" id="modalPromptText"></div>
+            </div>
+            <div style="background: var(--surface); padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--surface-border); font-size: 12px; color: var(--text-dim);">
+              <strong style="color: var(--text);">Prompt Tips:</strong> Modify the subject keyword while preserving the lighting parameters (<code>--style raw</code>, <code>Octane render</code>, <code>diffused rim lighting</code>) to create consistent design systems.
+            </div>
+          </div>
+
+          <!-- Tab 3: Design Brief -->
+          <div id="tabContentBrief" style="display: none; flex-direction: column; gap: 14px; flex: 1;">
+            <p style="font-size: 13px; color: var(--text-muted);">
+              A turnkey design brief ready to hand to a designer, front-end developer, or copy into an AI assistant to scaffold a complete web experience:
+            </p>
+            <div class="code-box-wrapper">
+              <div class="code-box-header">
+                <span>MARKDOWN DESIGN SPECIFICATION</span>
+                <span>Ready to Export</span>
+              </div>
+              <div class="code-box" id="modalBriefText" style="max-height: 420px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Bottom Actions -->
+        <div class="modal-action-bar">
+          <div style="font-size: 12px; color: var(--text-dim);" id="modalKeyboardHint">
+            Use <kbd>←</kbd> <kbd>→</kbd> arrows to navigate • <kbd>Esc</kbd> to exit
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn" id="modalCopyPromptBtn" onclick="copyCurrentPrompt()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>
+              Copy Image Prompt
+            </button>
+            <button class="btn btn-primary" id="modalCopyBriefBtn" onclick="copyCurrentBrief()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              Copy Design Brief
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toastNotification">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <span id="toastMessage">Copied to clipboard</span>
+  </div>
+
+  <!-- Embedded Application Data -->
+  <script>
+    const APP_DATA = {"categories": [{"id": "spatial-neumorphic", "name": "Spatial Neumorphism & Claymorphic 3D", "tagline": "Tactile soft-volume interfaces with realistic ambient shadows and spatial depth", "description": "Spatial Neumorphism bridges the tactile familiarity of skeuomorphism with the clean minimalism of flat design. Popularized by spatial computing paradigms like Apple VisionOS, it employs soft ambient occlusion, multi-layered diffuse drop shadows, inner bevels, and pill-shaped tactile surfaces that feel touchable yet weightless.", "uniqueness": "Unlike traditional flat UI that relies on 2D planes, spatial claymorphism treats interface elements as smooth, molded matte plastic, frosted glass, or extruded clay resting inside a softly illuminated 3D studio environment. Buttons evoke an irresistible desire to press.", "characteristics": ["Soft dual shadows (light elevation on top-left, dark ambient drop on bottom-right)", "Pill-shaped pill buttons and rounded-corner floating card containers", "Matte clay, frosted resin, and satin silicone surface finishes", "Pastel-to-vibrant fluid gradient insets against clean warm-neutral backdrops", "Staged physical presentation (podiums, soft geometric pebbles, ambient sphere props)"], "principles": ["Depth through Lighting: Interfaces inherit light from a consistent virtual environment.", "Tactile Affordance: Every interactive element has perceived physical thickness.", "Calm Ergonomics: Generous padding, organic curvature, and glare-free finishes reduce visual fatigue."], "vocabulary": ["Ambient Occlusion", "Claymorphism", "Soft Elevation", "Tactile Affordance", "Diffused Specular", "Pill Geometry", "Frosted Acrylic", "Spatial Computing", "Podium Staging"], "palette": ["#F5F5F7", "#FFFFFF", "#F97316", "#047857", "#1E293B", "#CBD5E1"]}, {"id": "industrial-dark-tech", "name": "Industrial Dark Minimal & Tech Spec", "tagline": "Dieter Rams functionalism meets cybernetic hardware transparency and strict typography", "description": "Inspired by the Nothing OS ethos and German industrial design (Braun / Dieter Rams), this visual direction champions raw engineering clarity. It strips away ornamental fluff in favor of monospace data stamps, stark black-and-white contrast, dot-matrix motifs, hairline dividers, and macro hardware product photography.", "uniqueness": "Celebrates internal engineering rather than hiding it. It feels like an authentic military-grade or laboratory tech specification sheet translated into a cutting-edge digital interface.", "characteristics": ["Pitch-black OLED canvases paired with high-contrast stark white typography", "Oversized outline or solid display numerals (01, 02, 03) anchoring content sections", "Ultra-thin hairline grid dividers (1px 15% opacity white)", "Technical micro-data badges, role breakdowns, and engineering timestamps", "Macro architectural photography of hardware internals, lenses, and machined dials"], "principles": ["Form Follows Function: Every visual mark serves as navigation, orientation, or technical context.", "High-Contrast Economy: Zero unnecessary color; attention is governed by scale and brightness.", "Engineering Authenticity: Interfaces treat hardware with reverence, emphasizing industrial precision."], "vocabulary": ["Industrial Minimal", "Nothing OS Aesthetic", "OLED Dark Mode", "Dot-Matrix Grid", "Hairline Divider", "Monochrome Contrast", "Macro Hardware", "Technical Indexing", "Functionalist UI"], "palette": ["#000000", "#111111", "#FFFFFF", "#888888", "#222222", "#E11D48"]}, {"id": "engraved-etching", "name": "Engraved Linocut & Biological Etching", "tagline": "19th-century scientific lithography and woodcut hatching fused with modernist alternating layout", "description": "A striking juxtaposition of historic printmaking craftsmanship and contemporary web layout. It uses cross-hatched, stippled biological illustrations (octopuses, deep-sea creatures, anatomical diagrams) contrasted against alternating high-contrast horizontal color bands and modern geometric sans-serif typography.", "uniqueness": "Humanizes digital screens with the timeless artisanal weight of manual engraving. It commands intellectual curiosity and museum-grade prestige while maintaining swift modern web usability.", "characteristics": ["Intricate hand-drawn black-and-white cross-hatching, stipple shading, and contour line art", "Alternating full-bleed light and dark horizontal content bands", "Vibrant geometric accent dots (coral orange / vermilion) breaking monochrome austerity", "Spacious editorial typography with wide letter-spaced uppercase headings and hairline bordered CTA buttons", "Asymmetrical tension between natural organic biology and rigid geometric grids"], "principles": ["Tactile Craft in Digital Spaces: Hand-crafted linework creates irreplaceable artisanal trust.", "Rhythmic Contrast: Alternating dark and light bands creates a natural reading cadence.", "Micro-Accent Focus: Tiny high-chroma dots guide the eye without cluttering the canvas."], "vocabulary": ["Linocut Etching", "Cross-Hatching", "Scientific Lithography", "Alternating Bands", "Marine Biology Art", "Geometric Accent", "Stipple Shading", "Museum Editorial", "Woodblock Print"], "palette": ["#FFFFFF", "#121212", "#FF5722", "#E0E0E0", "#2C2C2C", "#F8F8F8"]}, {"id": "bioluminescent-glass", "name": "Dark Bioluminescent Glassmorphism", "tagline": "Organic chromatic refraction, subterranean glow, and luminous 3D fluid forms", "description": "Combining subterranean dark backgrounds with vibrant internal light sources refracted through thick organic glass or fluid membranes. Popular in premium cybersecurity, deep-tech AI, and blockchain applications where complex hidden power must feel tangible, alive, and secure.", "uniqueness": "Rather than standard flat glassmorphism, this style simulates realistic physical optics: chromatic dispersion, subsurface light scattering, and fluid surface tensions that emit an ethereal, neon-infused glow from deep within the canvas.", "characteristics": ["True black canvas (`#000000` to `#0A0D14`) providing infinite contrast", "Bioluminescent gradients blending fiery magma orange, electric violet, and deep cobalt", "Frosted translucent glassmorphism cards with hairline borders (`rgba(255,255,255,0.12)`)", "Fluid, lava-lamp-like 3D organic meshes that appear to float and pulsate", "Pill buttons with gradient inner glows and clean sans-serif typography"], "principles": ["Depth via Luminance: Light radiates from behind content, establishing clear spatial hierarchy.", "Organic Dynamism: Non-rigid fluid geometry communicates adaptability and cutting-edge intelligence.", "Selective Chromaticity: Color is concentrated solely inside luminous glass orbs; the UI remains neutral."], "vocabulary": ["Bioluminescence", "Chromatic Dispersion", "Fluid Glassmorphism", "Subsurface Scattering", "Subterranean Dark", "Optical Refraction", "Luminous Mesh", "Cyber-Organic", "Deep-Tech SaaS"], "palette": ["#000000", "#FF4500", "#7928CA", "#0070F3", "#111827", "#FFFFFF"]}, {"id": "generative-pointcloud", "name": "Generative Point Cloud & Parametric Waveform", "tagline": "Algorithmic mathematical lattices, dynamic particle clouds, and topographical noise", "description": "Born from computational geometry and creative coding (Three.js, WebGL, TouchDesigner). Represents complex data, quantum mechanics, and artificial intelligence through thousands of discrete colored particles arranged into morphing topological landscapes.", "uniqueness": "Transfers the raw beauty of mathematical equations and matrix calculations into an intuitive visual artifact. Every point is both individual data and part of an emergent collective structure.", "characteristics": ["Thousands of crisp circular point particles forming a contiguous 3D manifold", "Smooth chromatic color mapping (electric cyan transitioning into neon magenta and violet)", "Perlin or Simplex noise displacement evoking organic ripples, sound waves, or planetary terrains", "Total pitch-black void isolation emphasizing the luminescence of the particle cloud", "Clean spatial balance suitable for hero visual anchors and tech branding"], "principles": ["Emergence: Complex organic beauty arising from simple mathematical coordinates.", "Visual Metaphor for Data: Makes abstract computational processes tangible and awe-inspiring.", "Spatial Restraint: Generous empty space lets the central kinetic form command total focus."], "vocabulary": ["Point Cloud", "Parametric Geometry", "Perlin Noise", "Chromatic Waveform", "Creative Coding", "Particle Mesh", "Topological Deform", "Data Sculpture", "WebGL Shader"], "palette": ["#000000", "#00D2FF", "#9B51E0", "#FF007A", "#0E131F", "#FFFFFF"]}, {"id": "cyber-brutalist-techwear", "name": "Cyber-Brutalist Techwear & Swiss Grid", "tagline": "High-fashion utilitarianism, bold technical typography, and stark industrial safety accents", "description": "Merges high-performance techwear apparel culture with the timeless rigor of the 1950s Swiss International Typographic Style. It pairs stark white backgrounds with bold lowercase Helvetica-style logotypes, industrial safety vermilion blocks, technical data labels, and avant-garde studio fashion photography.", "uniqueness": "Radically rejects the decorative softness of typical web design in favor of clinical, utilitarian confidence. It feels like an aerospace material specification sheet colliding with high-fashion streetwear.", "characteristics": ["Stark, crisp white background paired with deep carbon black and vivid safety orange", "Heavy sans-serif display typography ('lab.', vertical index '001')", "Strict modular grid system with visible borders, data stamps, and product code tags ('X-LAB')", "High-contrast fashion photography featuring technical nylon outerwear and tactile materials", "Floating navigational elements and minimal arrow buttons with precise positioning"], "principles": ["Utilitarian Brutalism: No ornamental gradients; structure is exposed and celebrated.", "Typographic Dominance: Type size and weight variations establish an unshakeable hierarchy.", "Accented Severity: A single high-chroma safety color focuses user attention instantly."], "vocabulary": ["Techwear Aesthetic", "Cyber Brutalism", "Swiss Typographic Grid", "Safety Vermilion", "Micro-Data Tags", "Monochrome Fashion", "Utilitarian UI", "Industrial Layout", "Helvetica Display"], "palette": ["#FFFFFF", "#0A0A0A", "#FF3B00", "#E5E5E5", "#737373", "#171717"]}, {"id": "warm-editorial-luxury", "name": "Warm Editorial Luxury & Earthy Serenity", "tagline": "Desert sunset palettes, architectural lighting, and high-fashion serif-script harmony", "description": "An evocative, high-end e-commerce aesthetic characterized by terracotta, warm amber, and golden-hour lighting. It pairs stately high-contrast serif headlines with flowing editorial cursive script, warm neutral product cards, and surreal desert landscape staging.", "uniqueness": "Replaces cold corporate minimalism with emotional warmth, artisanal serenity, and architectural prestige. It evokes the feeling of browsing an exclusive architectural digest or luxury lighting gallery.", "characteristics": ["Warm dusk color palette: golden honey, terracotta dunes, deep espresso, and soft cream", "Typographic pairing of majestic modern serif ('Make Life Brighter') with flowing script ('Room')", "Surreal landscape staging (architectural mid-century lamps emerging from natural sand dunes)", "Generous whitespace, subtle drop shadows, and soft rounded image containers", "Clean tabular specs and understated pill buttons ('Explore', 'Pre-Order Now')"], "principles": ["Atmospheric Immersion: Lighting creates an immediate emotional sanctuary and luxury feel.", "Harmonious Contrast: Stiff classical serif balances expressive handwritten script.", "Product as Art: E-commerce items are curated like museum sculptures in architectural environments."], "vocabulary": ["Warm Minimalism", "Editorial Serif", "Calligraphic Script", "Golden Hour Lighting", "Desert Warmth", "Architectural Product Staging", "Luxury E-Commerce", "Earthy Palette"], "palette": ["#F8B153", "#3C2114", "#FDFBF7", "#C99166", "#8A5435", "#1E120B"]}, {"id": "refined-modern-saas", "name": "Refined Modern SaaS & Micro-Bento", "tagline": "Porcelain cards, micro-borders, inverted hero emphasis, and modular AI directories", "description": "The gold standard of 2025–2026 product design (exemplified by Linear, Vercel, Raycast, and modern AI platforms). It combines soft warm-porcelain backgrounds (`#F8F7F4`), hairline micro-borders, modular bento cards, inverted dark high-contrast primary tiers, and clean directory filters.", "uniqueness": "Achieves supreme density and readability without feeling cluttered. Every component feels engineered to 1-pixel precision, featuring subtle hover states, clean badge chips, and natural visual hierarchy.", "characteristics": ["Warm off-white / porcelain canvas with pristine white surface cards", "Inverted high-contrast dark card for the primary recommendation ('Pro - Most Popular')", "Modular bento architecture with clean feature checklists and segmented toggles (Monthly/Annual)", "Marketplace directory cards with rating stars, creator avatars, and pill tags", "Flawless responsive translation between multi-column desktop grids and stacked mobile cards"], "principles": ["Clarity Above All: Data is structured with predictable typographic scale and generous padding.", "Inverted Focus: Dark accent cards create an effortless visual anchor on key conversion paths.", "Tactile Micro-Details: 1px hairline borders (`rgba(0,0,0,0.06)`) provide definition without heavy shadows."], "vocabulary": ["Bento Grid", "Porcelain Background", "Micro-Border", "Inverted Hero Card", "Segmented Control", "Feature Matrix", "AI Directory UI", "Tiered Pricing", "Linear Style"], "palette": ["#F8F7F4", "#FFFFFF", "#111827", "#E5E7EB", "#4B5563", "#F3F4F6"]}, {"id": "ethereal-3d-dreamscape", "name": "Ethereal 3D Dreamscape & Soft Tactile Nature", "tagline": "Fuzzy velvet hills, surreal pastel flora, and tranquil glass-framed wellness UI", "description": "A pioneering aesthetic in contemporary digital wellness and mental healthcare platforms (such as Bloom by Phenomenon Studio). It replaces sterile clinical tropes with whimsical, tactile 3D dreamscapes featuring fuzzy velvet terrain, apricot and lilac grassy hills, and tranquil reflective rivers.", "uniqueness": "Elicits visceral calm and physical comfort through soft textures (fur, velvet, morning mist) rendered with hyper-realistic 3D global illumination, creating an inviting sanctuary on screen.", "characteristics": ["Hyper-soft tactile 3D materials (velvet grass, fur foliage, glass water reflections)", "Dreamy pastel palette: serene lilac, warm peach, soft gold, and muted misty lavender", "Clean rounded browser viewport container framed against a gently blurred ambient background", "Empathic editorial headline typography ('Grow through what you go through')", "Minimalist navigation with translucent pill CTA buttons"], "principles": ["Emotional Resonation: Sensory visual textures actively induce psychological calm and safety.", "Atmospheric Staging: The interface sits inside a tranquil virtual window rather than flat page edges.", "Humanist Healthcare: Technology is framed as an organic, nurturing companion."], "vocabulary": ["Ethereal Dreamscape", "Tactile 3D", "Furry Grass Shader", "Mental Health UI", "Sensory Calming", "Lilac & Peach Palette", "Reflective Stream", "Framed Viewport", "Organic 3D"], "palette": ["#9B72CF", "#F5A66B", "#C8B6FF", "#F7ECE1", "#FFFFFF", "#4A3B69"]}, {"id": "playful-pastel-bento", "name": "Soft Playful Pastel Bento & EdTech", "tagline": "Approachable multi-hued category cards, pill navigation, and friendly learning metrics", "description": "An inviting dashboard style engineered for education, learning management, and personal productivity. It organizes diverse information into color-coded pastel bento boxes (coral peach, soft melon, periwinkle blue, mint green) with friendly rounded geometry and playful micro-illustrations.", "uniqueness": "Transforms potentially intimidating educational curriculum and technical roadmaps into delightful, bite-sized modules that invite playful exploration and sustained engagement.", "characteristics": ["Warm off-white background with pastel color-coded cards for content categories", "Rounded-corner bento containers with soft contrast borders and comfortable spacing", "Vertical icon rail navigation on the left, primary content in center, profile/analytics on right", "Clean sans-serif display typography with friendly, encouraging copy ('Invest in your education')", "Stacked pastel bar charts and progress badges celebrating user milestones"], "principles": ["Cognitive Ease: Color coding helps users parse category boundaries instantly without reading labels.", "Approachable Geometry: Soft radiuses (16px–24px) eliminate harsh digital edges.", "Motivational Telemetry: Progress bars and achievement stats are styled like welcoming lifestyle charts."], "vocabulary": ["Pastel Bento", "EdTech Dashboard", "Color-Coded Modular", "Pill Filter Rail", "Approachable UI", "Card Grid", "Learning Analytics", "Friendly Hierarchy", "Soft Geometry"], "palette": ["#FFD6D6", "#FFE6C9", "#D8E2FE", "#D5F5E3", "#1F2937", "#FFFFFF"]}, {"id": "neo-fintech-minimal", "name": "Neo-Fintech Minimal & High-Voltage Accents", "tagline": "Stark Swiss layout, electric lime-chartreuse energy, and dynamic pixel dispersion", "description": "The defining look of high-growth fintech disruptors (Square, Cash App, Revolut). Characterized by high-contrast monochrome layouts energized by razor-sharp electric lime (`#D4F024`), purple accents, floating 3D cards disintegrating into digital pixel confetti, and circular orbital trajectory diagrams.", "uniqueness": "Balances the rock-solid credibility of banking with the electric velocity of decentralized finance. It uses kinetic pixel dispersion to symbolize frictionless, borderless payment movement.", "characteristics": ["Stark black-and-white foundation electrified with high-voltage chartreuse/lime (`#D4F024`)", "Hero centerpiece: 3D payment card floating at an angle and disintegrating into digital pixels", "Abstract financial infographics: orbital constellation circles, concentric radar rings, data paths", "Swiss-style clean grid typography with numbered feature badges and pill buttons", "Scalloped / wave-cut black footer section providing a dramatic grounding base"], "principles": ["Kinetic Energy: Pixel dispersion conveys modern speed, contactless ease, and transformation.", "Precision through Contrast: Razor-sharp lines and electric accents build confidence and clarity.", "Modular Scalability: Responsive layouts easily fold from wide multi-column grids to sleek mobile streams."], "vocabulary": ["Neo-Fintech", "High-Voltage Chartreuse", "Pixel Dispersion", "Orbital Diagram", "Swiss Banking Layout", "Floating 3D Card", "Contactless Payment UI", "Constellation Graphic"], "palette": ["#D4F024", "#000000", "#FFFFFF", "#8B5CF6", "#F3F4F6", "#1E1E1E"]}, {"id": "subcultural-alt-aesthetic", "name": "Subcultural Alt Aesthetic & Character Styling", "tagline": "Dark romanticism, high-contrast gothic accents, and expressive creator visual identity", "description": "An influential visual direction drawn from modern alternative youth culture, dark romanticism, and digital creator fashion. Emphasizes intense monochrome contrast, dramatic black lipstick, edgy zipper hardware, delicate choker details, and bold personal branding.", "uniqueness": "Celebrates fearless self-expression, dark allure, and subcultural authenticity. In web and brand design, this translates into striking high-fashion editorial imagery, dramatic dark themes, and rebellious counter-culture energy.", "characteristics": ["High-contrast palette centered on pitch blacks, porcelain skin tones, and subtle metallic accents", "Signature gothic styling: bold black lipstick, winged eyeliner, choppy fringe, hardware zippers", "Dramatic studio lighting creating soft facial gradients and sharp garment definition", "Expressive, emotive poses that project confidence, mystery, and artistic independence", "Direct application to creator portfolios, fashion lookbooks, and alternative lifestyle brands"], "principles": ["Authentic Counter-Culture: Rejects generic commercial blandness for uncompromising persona.", "Dramatic Value Contrast: Juxtaposing pure black against bright highlights commands immediate gaze.", "Sensory Hardware Accents: Metal zipper teeth, chains, and jewelry provide tactile focal points."], "vocabulary": ["Alt Fashion", "Gothic Editorial", "Dark Romanticism", "High-Contrast Portraiture", "Subcultural Branding", "Hardware Details", "Creator Persona", "Avant-Garde Styling"], "palette": ["#0A0A0A", "#FFFFFF", "#E11D48", "#1C1917", "#D4D4D8", "#F43F5E"]}, {"id": "minimalist-glyphic", "name": "Minimalist Glyphic Symbolism & OLED Dark", "tagline": "Pure OLED negative space, expressive hand-drawn glyphs, and micro-numeric telemetry", "description": "Extreme reductionist design inspired by cryptic minimalism, mobile OS lockscreens, and mysterious philosophical teasers. Built on infinite pitch-black canvases with stark white hand-drawn typographic emblems, geometric asterisk medallions, and precise coordinate stamps.", "uniqueness": "Commands supreme intrigue through absence. By stripping away 99% of UI ornamentation, the solitary question mark glyph and terracotta medallion become magnetic storytelling objects.", "characteristics": ["100% true pitch-black OLED background (`#000000`) for infinite contrast and zero glare", "Bold, expressive hand-drawn white question mark glyph commanding the upper vertical axis", "Terracotta / terracotta-orange circular medallion with a radiating white asterisk emblem", "Cryptic micro-numeric telemetry (`287/1937/354`) creating curiosity and technical intrigue", "Mobile OS status bar and dock icons grounding the visual in practical mobile interaction"], "principles": ["The Power of Negative Space: Void amplifies meaning; what is omitted matters as much as what is drawn.", "Glyphic Magnetism: A single universally recognized punctuation mark provokes inquiry.", "Teaser Psychology: Minimalism used to create suspense, hype, and curiosity."], "vocabulary": ["Glyphic Minimalism", "OLED Pitch Black", "Cryptic UI", "Hand-Drawn Emblem", "Asterisk Medallion", "Numeric Telemetry", "Negative Space", "Curiosity Design", "Lockscreen UI"], "palette": ["#000000", "#FFFFFF", "#D96846", "#1F1F1F", "#3B82F6", "#10B981"]}], "inspirations": [{"id": "insp-01", "filename": "6048402886351327832.jpg", "title": "Vision Pro 3D Neumorphic Interface", "categoryId": "spatial-neumorphic", "categoryName": "Spatial Neumorphism & Claymorphic 3D", "subStyle": "Tactile Claymorphic Dashboard on Studio Podium", "summary": "Tactile 3D interface display inspired by VisionOS with pill-shaped buttons, ambient drop shadows, and soft studio lighting.", "breakdown": {"style": "Spatial Neumorphism & Claymorphic 3D", "composition": "Central floating card mounted on a cylindrical display podium with scattered organic pebbles and spheres in an ambient light studio.", "colorPalette": ["#FFFFFF", "#F5F5F7", "#F97316", "#047857", "#CBD5E1"], "typography": "Clean geometric neo-grotesque sans-serif with bold header 'Vision Pro' and structured label hierarchy.", "lighting": "Diffused directional top-right lighting casting soft multi-tier ambient occlusion shadows, giving every card tangible volume.", "techniques": "Layered drop shadows with zero harsh edges, inner bevel highlights, smooth matte finish, pill toggles."}, "keywords": ["Claymorphism", "Spatial UI", "VisionOS", "Neumorphism", "Ambient Occlusion", "Pill Buttons", "Studio Lighting", "Podium Display"], "prompt": "Modern Vision Pro inspired 3D neumorphic UI dashboard, clean white matte ceramic finish, soft pill-shaped interactive buttons, subtle ambient occlusion shadows, floating cards in vibrant warm orange gradient and emerald green accents, minimalist display podium in a serene light studio, organic matte clay pebbles, hyper-clean lighting, high-end Apple product render, Octane Render, 8k resolution, cinematic lighting --ar 16:9 --v 6.1 --style raw", "brief": "# Design Brief: Spatial Neumorphic Web Application\n\n## 1. Project Concept & Visual Direction\n- **Style:** Spatial Neumorphism & Claymorphism\n- **Target Feel:** Premium, physical, calm, cutting-edge spatial computing\n- **Atmosphere:** Clean studio daylight, matte ceramic surfaces, soft physical affordance\n\n## 2. Layout & Architecture\n- **Grid:** Centered 12-column responsive layout with rounded floating card containers (border-radius: 24px)\n- **Elevation System:** Two-tier soft shadow hierarchy (`box-shadow: 0 10px 30px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04)`)\n- **Spacing:** Generous padding (32px to 48px inside cards) to preserve air and calm\n\n## 3. Color System\n- Canvas: `#F5F5F7` (Apple Studio Grey)\n- Card Surfaces: `#FFFFFF` with 1px border `#E5E7EB`\n- Accent Warm: `#F97316` (Vibrant Peach/Orange gradient)\n- Accent Deep: `#047857` (Emerald Velvet)\n- Text Primary: `#1E293B`, Secondary: `#64748B`\n\n## 4. Typography Hierarchy\n- Display: Inter or SF Pro Display, Semi-bold 32px / 1.2\n- Body: Inter Regular 16px / 1.6\n- Labels & Tags: Monospace or Uppercase Sans 11px / tracking +0.05em\n\n## 5. UI Components & Interactivity\n- **Buttons:** Pill-shaped (`border-radius: 9999px`) with tactile pressed states (scale 0.98 on click)\n- **Cards:** Claymorphic depth with subtle inner highlight (`inset 0 1px 1px rgba(255,255,255,0.8)`)\n- **Micro-Interactions:** Smooth spring physics on hover elevation and smooth cursor transitions."}, {"id": "insp-02", "filename": "6048402886351327833.jpg", "title": "Nothing OS Industrial Spec Portfolio", "categoryId": "industrial-dark-tech", "categoryName": "Industrial Dark Minimal & Tech Spec", "subStyle": "Dieter Rams Industrial Functionalism & Monospace Indexing", "summary": "Stark monochrome case-study layout featuring oversized numerals, hairline grid rules, and macro hardware photography.", "breakdown": {"style": "Industrial Dark Minimal / Nothing OS Ethos", "composition": "Tripartite horizontal split with numbered case study sections (01, 02, 03) paired with macro industrial product photography on the right.", "colorPalette": ["#000000", "#111111", "#FFFFFF", "#888888", "#222222"], "typography": "High-impact outline display numerals (01/02/03) paired with clean geometric sans-serif and monospace metadata labels.", "lighting": "Studio spotlighting highlighting circular camera bezels, textured dials, and matte black poly-carbonate hardware.", "techniques": "Hairline horizontal dividers, technical icon matrix (lightbulbs, cubes, grid dots), strict metadata attribution."}, "keywords": ["Nothing OS", "Industrial Design", "OLED Dark Mode", "Numbered Index", "Hairline Grid", "Technical Typography", "Macro Hardware", "Braun Ethos"], "prompt": "Industrial tech product portfolio website mockup, Nothing OS design language, stark OLED black background, bold white technical typography, oversized numbers '01' '02' '03' with hairline dividers, macro close-up photography of transparent mechanical speaker and sleek flashlight lens, minimalist icon grid, engineering blueprint aesthetic, Dieter Rams functionalism, 8k resolution, crisp studio rim lighting --ar 9:16 --v 6.1 --style raw", "brief": "# Design Brief: Industrial Dark Tech Specification Web App\n\n## 1. Project Concept & Visual Direction\n- **Style:** Industrial Dark Minimal (Nothing OS / Dieter Rams aesthetic)\n- **Target Feel:** High-precision engineering, utilitarian, uncompromising, authentic\n- **Atmosphere:** Pitch-black OLED canvas, surgical white typography, mechanical hardware details\n\n## 2. Layout & Architecture\n- **Grid:** Rigid horizontal band layout separated by 1px hairline rules (`rgba(255,255,255,0.15)`)\n- **Section Indexing:** Prominent numerical anchors (`01`, `02`, `03`) commanding 64px display size\n- **Split Screen:** 50% left technical spec & copy / 50% right macro product photography\n\n## 3. Color System\n- Canvas: `#000000` (Pitch Black)\n- Surface: `#0D0D0D`\n- Hairlines: `rgba(255, 255, 255, 0.12)`\n- Primary Type: `#FFFFFF` (100% white)\n- Secondary Type: `#888888` (Muted technical grey)\n- Hardware Accent: `#E11D48` (Precision red indicator dot)\n\n## 4. Typography Hierarchy\n- Numerals: Space Grotesk or Druk Wide Bold (64px–96px)\n- Headings: Inter SemiBold 24px\n- Technical Meta: JetBrains Mono or Space Mono Regular 12px\n\n## 5. UI Components & Interactivity\n- **Navigation:** Hairline bordered pills with dot-matrix active indicators\n- **Iconography:** 1px stroke minimalist engineering glyphs\n- **Image Presentation:** High-definition black-and-white macro crops with subtle red focus points."}, {"id": "insp-03", "filename": "6048402886351327834.jpg", "title": "Fuego Marine Linocut & Alternating Bands", "categoryId": "engraved-etching", "categoryName": "Engraved Linocut & Biological Etching", "subStyle": "Vintage Scientific Cross-Hatching & Modernist Color Blocking", "summary": "Alternating light/dark web layout with vintage biological cross-hatched marine illustrations and minimalist orange dot accents.", "breakdown": {"style": "Engraved Linocut & Biological Etching", "composition": "Alternating full-width white and charcoal sections, zigzagging illustration and text alignment (left-right alternating rhythm).", "colorPalette": ["#FFFFFF", "#141414", "#FF5722", "#757575", "#000000"], "typography": "Wide-spaced uppercase sans-serif headings ('OUT THERE', 'IMMERSION', 'TO INFINITY') with classic framed outline purchase buttons.", "lighting": "High-contrast 2D black ink printmaking linework on crisp paper textures.", "techniques": "Authentic woodcut hatching, stipple textures, trajectory dots in burnt orange, minimal bordered buttons."}, "keywords": ["Linocut", "Cross-Hatching", "Marine Biology", "Alternating Bands", "Orange Accent", "Scientific Etching", "Editorial Layout", "Woodblock"], "prompt": "Editorial web design for luxury marine publication 'Fuego', alternating stark white and dark charcoal horizontal bands, intricate vintage black and white cross-hatched linocut illustrations of giant octopus, seahorse, sperm whale and jellyfish, delicate floating geometric burnt-orange dots, minimalist modern sans-serif typography, wireframe outline purchase buttons, museum quality aesthetic, graphic design Behance award winner --ar 9:16 --v 6.1", "brief": "# Design Brief: Artisanal Linocut & Scientific Editorial Website\n\n## 1. Project Concept & Visual Direction\n- **Style:** Vintage Scientific Engraving meets Contemporary Web Editorial\n- **Target Feel:** Scholarly, timeless, artisanal, museum-grade prestige\n- **Atmosphere:** Deep-sea mystery, printmaking authenticity, rhythmic reading journey\n\n## 2. Layout & Architecture\n- **Band System:** Alternating full-bleed blocks (`#FFFFFF` background with black ink / `#141414` background with white linework)\n- **Rhythm:** Alternating content alignment (Section 1: Art Left / Text Right; Section 2: Text Left / Art Right)\n- **Container:** Max-width 1200px centered grid with generous vertical padding (120px between bands)\n\n## 3. Color System\n- Light Band Canvas: `#FFFFFF`\n- Dark Band Canvas: `#141414`\n- Accent Color: `#FF5722` (Burnt Orange / Vermilion dots)\n- Ink Linework: High-contrast monochrome SVG cross-hatching\n\n## 4. Typography Hierarchy\n- Titles: Clean geometric sans-serif (Cabinet Grotesk or Archivo), uppercase, letter-spacing: 0.15em\n- Body: Editorial serif or clean sans (Newsreader or Inter) 15px with relaxed line-height (1.8)\n- CTA: 1px bordered outline rectangle with uppercase tracked text\n\n## 5. Visual Assets & Features\n- Custom vector SVG etching illustrations with fine stroke rendering\n- Interactive constellation of orange dot accents with subtle floating animations on scroll."}, {"id": "insp-04", "filename": "6048402886351327835.jpg", "title": "Securify Bioluminescent Glass Cyber-SaaS", "categoryId": "bioluminescent-glass", "categoryName": "Dark Bioluminescent Glassmorphism", "subStyle": "Subterranean Dark Mode with Luminous Chromatic Blobs", "summary": "Deep dark security SaaS landing page with vibrant glowing chromatic glass blobs, frosted glass cards, and pill buttons.", "breakdown": {"style": "Dark Bioluminescent Glassmorphism", "composition": "Vertical storytelling layout with massive lowercase hero typography ('protect your data') wrapping around luminous 3D glass fluid forms.", "colorPalette": ["#000000", "#FF4500", "#3B82F6", "#8B5CF6", "#1F2937", "#FFFFFF"], "typography": "Modern clean geometric sans-serif with bold oversized hero text, metric callouts (+1.5b, +65k), and pill button labels.", "lighting": "Internal chromatic bioluminescence: glowing embers of fiery orange blending into radiant cyan and violet refraction.", "techniques": "Glassmorphism cards (`backdrop-filter: blur(20px)`), frosted pill buttons, client logo grid, 3D fluid refraction."}, "keywords": ["Bioluminescence", "Glassmorphism", "Cyber Security", "Fluid 3D", "OLED Black", "Chromatic Refraction", "Pill Buttons", "SaaS Hero"], "prompt": "Modern cybersecurity SaaS landing page hero section, pitch black background, glowing bioluminescent 3D organic fluid glass orbs, vibrant fiery orange core radiating into cyan and purple refracted edges, frosted glassmorphic UI cards with delicate white borders, lowercase bold typography 'protect your data', glowing pill buttons, partner logo bar, cinematic depth of field, Octane 3D render, luxury tech product --ar 9:16 --v 6.1 --style raw", "brief": "# Design Brief: Bioluminescent Glass Security SaaS\n\n## 1. Project Concept & Visual Direction\n- **Style:** Bioluminescent Dark Glassmorphism\n- **Target Feel:** High-security, impenetrable yet intelligent, cutting-edge AI\n- **Atmosphere:** Deep subterranean dark with glowing internal energy refraction\n\n## 2. Layout & Architecture\n- **Hero:** Asymmetric typography overlaying interactive WebGL / 3D fluid glass models\n- **Stats Ribbon:** Floating metrics (`+65k startups`, `+1.5b gb protected`) anchored by hairline guidelines\n- **Social Proof:** Monochromatic partner logo strip (`Auth`, `Unity`, `Dropbox`) with frosted container\n\n## 3. Color System\n- Base Canvas: `#000000` (Pure pitch black)\n- Glass Card: `rgba(255, 255, 255, 0.03)` with `border: 1px solid rgba(255, 255, 255, 0.08)`\n- Primary Glow: `#FF4500` (Molten Amber)\n- Secondary Glow: `#0070F3` (Electric Blue)\n- Accent Rim: `#7928CA` (Luminous Violet)\n\n## 4. Typography Hierarchy\n- Hero Heading: Modern geometric sans (Plus Jakarta Sans or General Sans), 72px Bold, letter-spacing: -0.03em\n- Subtitle: Inter 16px / 1.5 with 70% opacity white\n- CTAs: Pill buttons (`border-radius: 50px`) with gradient fill or frosted outline\n\n## 5. UI Elements & Interactivity\n- **Glass Cards:** High blur (`backdrop-filter: blur(24px)`) with subtle specular highlight\n- **Hero Visual:** WebGL shader or Three.js fluid simulation with interactive mouse repulsion."}, {"id": "insp-05", "filename": "6048402886351327836.jpg", "title": "Generative Particle Mesh & Point Cloud", "categoryId": "generative-pointcloud", "categoryName": "Generative Point Cloud & Parametric Data Art", "subStyle": "Algorithmic 3D Topological Waveform", "summary": "Algorithmic 3D particle mesh forming an organic deformed sphere with vibrant cyan-to-purple chromatic gradient on black.", "breakdown": {"style": "Generative Point Cloud & Parametric Waveform", "composition": "Central isolated organic spherical cluster floating weightlessly in infinite black negative space.", "colorPalette": ["#000000", "#00D2FF", "#7B2CBF", "#C77DFF", "#FFFFFF"], "typography": "Implicit data-driven aesthetic; ideal for branding, hero visuals, and tech identity.", "lighting": "Luminous self-illuminated particle dots with smooth spatial depth fade.", "techniques": "Parametric Perlin noise vertex displacement, chromatic gradient mapping across the Y/Z axis, variable dot sizing."}, "keywords": ["Point Cloud", "Generative Art", "Parametric", "Perlin Noise", "Cyan Purple Gradient", "WebGL", "Three.js", "Topological Waveform"], "prompt": "Generative 3D point cloud particle mesh forming an undulating organic sphere, Thousands of glowing dots in electric cyan fading to lavender and neon purple gradient, mathematical topological terrain displacement, isolated on absolute black background, creative coding aesthetic, TouchDesigner visual art, WebGL shader render, ultra-detailed particle simulation, 8k resolution --ar 9:16 --v 6.1", "brief": "# Design Brief: Generative Point Cloud Tech Brand\n\n## 1. Project Concept & Visual Direction\n- **Style:** Generative Point Cloud & Computational Geometry\n- **Target Feel:** Complex intelligence, quantum computing, algorithmic beauty\n- **Atmosphere:** Infinite void illuminated by intelligent particle formations\n\n## 2. Layout & Architecture\n- **Hero Centerpiece:** Interactive canvas rendering 50,000 particles responding to scroll and mouse movement\n- **Overlay UI:** Ultra-clean minimalist HUD navigation positioned in viewport corners\n- **Canvas Mode:** Seamless full-bleed WebGL container (`position: fixed; inset: 0; z-index: -1`)\n\n## 3. Color System\n- Canvas: `#000000`\n- Particle Start: `#00D2FF` (Electric Cyan)\n- Particle Mid: `#7B2CBF` (Deep Cyber Violet)\n- Particle End: `#FF007A` (Neon Magenta)\n- Text: `#FFFFFF` and `#A1A1AA`\n\n## 4. Typography Hierarchy\n- Brandmark: Monospace or razor-sharp grotesque (PP Neue Montreal or Geist Mono)\n- Hierarchy: Minimal text, letting the kinetic particle computation serve as primary brand identity\n\n## 5. Technical Implementation\n- Three.js `Points` and `BufferGeometry` with custom vertex shader applying Simplex noise displacement\n- Mouse interaction modulating wave frequency and rotation."}, {"id": "insp-06", "filename": "6048402886351327837.jpg", "title": "Lab 001 Cyber-Brutalist Techwear UI", "categoryId": "cyber-brutalist-techwear", "categoryName": "Cyber-Brutalist Techwear & Swiss Grid", "subStyle": "International Typographic Grid with International Safety Orange", "summary": "Stark Swiss grid layout with heavy bold lowercase typography, vermilion color blocks, and technical apparel photography.", "breakdown": {"style": "Cyber-Brutalist Techwear & Swiss Grid", "composition": "Rigid asymmetrical grid pairing high-fashion technical outerwear photography with safety orange color blocks and tactile silicone props.", "colorPalette": ["#FFFFFF", "#0A0A0A", "#FF3B00", "#E5E5E5", "#737373"], "typography": "Heavy modernist sans-serif ('lab.', vertical '001') with micro technical data stamps ('X-LAB MATERIALS OF CREATION').", "lighting": "Clean studio fashion lighting with crisp shadows and tactile material textures (Gore-Tex nylon, matte black latex).", "techniques": "Color blocking with international safety orange, vertical typography orientation, technical metadata stamps, card viewport framing."}, "keywords": ["Cyber Brutalism", "Techwear", "Swiss Grid", "Safety Orange", "Helvetica", "Fashion E-Commerce", "Utilitarian UI", "Micro-Data"], "prompt": "Avant-garde cyber-brutalist techwear e-commerce website UI design 'lab. 001', stark white background, high-contrast black typography, vibrant safety vermilion orange rectangular color blocks, editorial photograph of model wearing technical hooded rain jacket and black mask, tactile black matte rubber mannequin hand, Swiss grid system, micro technical text stamps, minimal modern navigation, Awwwards site of the day --ar 9:16 --v 6.1 --style raw", "brief": "# Design Brief: Cyber-Brutalist Techwear Brand Platform\n\n## 1. Project Concept & Visual Direction\n- **Style:** Cyber-Brutalist Techwear & Swiss International Typographic Style\n- **Target Feel:** High-performance, utilitarian, uncompromising, avant-garde\n- **Atmosphere:** Clinical lab precision, high-visibility industrial accents, raw material honesty\n\n## 2. Layout & Architecture\n- **Grid:** Asymmetric 16-column modular grid with explicit structural alignment\n- **Cards:** Crisp border frames (`border: 1px solid #171717`) without rounded corners or soft drop shadows\n- **Accents:** Solid blocks of high-voltage international safety orange (`#FF3B00`)\n\n## 3. Color System\n- Canvas: `#FFFFFF` (Stark clinical white)\n- Ink / Structure: `#0A0A0A` (Deep carbon)\n- Safety Accent: `#FF3B00` (International Orange)\n- Technical Muted: `#737373`\n\n## 4. Typography Hierarchy\n- Brandmark: Heavy geometric grotesk (Helvetica Now Display Black or Neue Haas Grotesk) 56px\n- Vertical Anchors: `writing-mode: vertical-rl` for numbered indexes (`001`, `LAB`)\n- Technical Metadata: Micro-caps 10px / letter-spacing: 0.1em\n\n## 5. UI Elements\n- Arrow action blocks (`→` inside solid black or orange squares)\n- Precise technical specification tables detailing fabric weights, waterproof ratings, and batch codes."}, {"id": "insp-07", "filename": "6048402886351327838.jpg", "title": "Brightio Warm Editorial Luxury Lighting", "categoryId": "warm-editorial-luxury", "categoryName": "Warm Editorial Luxury & Earthy Serenity", "subStyle": "Desert Golden-Hour Architectural Staging & Serif-Script Harmony", "summary": "Warm minimalist lighting brand landing page combining desert dune sunset tones with elegant serif headlines and cursive accents.", "breakdown": {"style": "Warm Editorial Luxury & Earthy Serenity", "composition": "Surreal hero landscape featuring a mid-century mushroom lamp set against golden-hour sand dunes, leading into a modular product catalog.", "colorPalette": ["#F8B153", "#3C2114", "#FDFBF7", "#C99166", "#8A5435"], "typography": "High-fashion high-contrast serif ('Make Life Brighter', 'Built to Last') paired with flowing calligraphic script ('Room', 'New Arrival').", "lighting": "Warm glowing sunset illumination casting amber radiance across smooth desert curves and architectural interiors.", "techniques": "Warm gradient hero transitions, typography overlay, bento product catalog with subtle drop shadows and metric badges."}, "keywords": ["Warm Minimalism", "Editorial Serif", "Calligraphic Script", "Architectural Lighting", "Desert Dusk", "Luxury E-Commerce", "Bento Catalog", "Golden Hour"], "prompt": "High-end luxury architectural lighting e-commerce website 'Brightio', sunset golden hour lighting, surreal desert dunes landscape with glowing mid-century modern amber mushroom lamp, warm terracotta and cream color palette, elegant high-contrast editorial serif typography paired with fluid cursive script 'Make Life Brighter', minimalist product grid, Dribbble trending, warm Scandinavian aesthetic --ar 16:9 --v 6.1", "brief": "# Design Brief: Warm Editorial Luxury E-Commerce\n\n## 1. Project Concept & Visual Direction\n- **Style:** Warm Editorial Luxury & Organic Serenity\n- **Target Feel:** Calming, prestigious, artisanal, warm, architectural\n- **Atmosphere:** Sunset golden hour in a serene desert sanctuary, glowing domestic warmth\n\n## 2. Layout & Architecture\n- **Hero:** Full-bleed warm dusk landscape with integrated typographic overlays\n- **Catalog Grid:** 4-column balanced product showcase with soft rounded corners (`border-radius: 12px`)\n- **Spacing:** Generous luxury margins (`padding: 96px 0`)\n\n## 3. Color System\n- Warm Glow: `#F8B153` (Golden Honey)\n- Deep Earth: `#3C2114` (Espresso Umber)\n- Clean Canvas: `#FDFBF7` (Alabaster Linen)\n- Muted Ochre: `#C99166`\n\n## 4. Typography Hierarchy\n- Headline Serif: Ogg, Recoleta, or Playfair Display (56px–72px)\n- Expressive Script: Italianno, Corinthia, or signature custom script for decorative words\n- Body & Specs: DM Sans or Satoshi Regular 14px\n\n## 5. UI Components\n- Pill pre-order buttons with subtle amber backglow\n- Specification badges (`50,000 Hrs`, `Up to 80% lower energy use`) with minimalist micro-icons."}, {"id": "insp-08", "filename": "6048402886351327839.jpg", "title": "Brightio Luxury Catalog Presentation Mockup", "categoryId": "warm-editorial-luxury", "categoryName": "Warm Editorial Luxury & Earthy Serenity", "subStyle": "Dribbble Portfolio Presentation with Terracotta Watermark", "summary": "Portfolio showcase of the Brightio lighting brand framed against a deep chocolate terracotta textured background with typographic watermark.", "breakdown": {"style": "Warm Editorial Luxury Presentation", "composition": "Multi-card presentation featuring centered hero interface surrounded by secondary mobile views and subtle architectural lamp silhouettes.", "colorPalette": ["#3C2114", "#F8B153", "#FDFBF7", "#A66D46"], "typography": "Ghosted giant watermark typography ('Brightio') creating rich textural depth behind the floating viewport frames.", "lighting": "Cohesive warm tungsten and sunset glow echoing across all displayed screen mockups.", "techniques": "Layered mockup framing, oversized background typography watermark, monochromatic brand staging."}, "keywords": ["Mockup Presentation", "Dribbble Shot", "Terracotta", "Watermark Type", "Multi-Device Framing", "Luxury Branding", "Lighting Design"], "prompt": "Dribbble portfolio presentation mockup for luxury lighting brand 'Brightio', rich earthy terracotta and dark chocolate brown background, oversized ghosted serif typography watermark, floating responsive mobile and desktop browser windows showcasing warm minimalist website design, soft realistic drop shadows, Behance award winner, ultra-clean presentation --ar 16:9 --v 6.1", "brief": "# Design Brief: Luxury Brand Showcase & Presentation Canvas\n\n## 1. Project Concept & Presentation\n- **Purpose:** High-impact case study presentation for luxury editorial products\n- **Visual Texture:** Rich earthy backdrop featuring subtle brand typography watermarks\n- **Arrangement:** Center-stage primary screen accompanied by supporting mobile viewports."}, {"id": "insp-09", "filename": "6048402886351327840.jpg", "title": "AI Agents Marketplace Pricing & Bento Cards", "categoryId": "refined-modern-saas", "categoryName": "Refined Modern SaaS & Micro-Bento", "subStyle": "Clean Porcelain Canvas with Inverted Dark Anchor Card", "summary": "Sophisticated AI agent marketplace UI featuring multi-tier pricing cards with an inverted dark 'Pro' card and mobile responsive preview.", "breakdown": {"style": "Refined Modern SaaS & Micro-Bento", "composition": "Four-tier pricing matrix with the 'Pro' card highlighted in deep charcoal black, accompanied by bottom agent marketplace cards and mobile preview.", "colorPalette": ["#F8F7F4", "#FFFFFF", "#111827", "#E5E7EB", "#4B5563"], "typography": "Clean geometric sans-serif (Inter / Geist) with prominent pricing figures ($25, $79) and crisp feature checklists.", "lighting": "Diffused soft daylight with subtle border-based elevation.", "techniques": "Inverted dark hero card, segmented monthly/annual discount toggle (`Annual 33% off`), pill badges (`Most Popular`), crisp checkmarks."}, "keywords": ["Pricing Table", "Bento Grid", "Porcelain SaaS", "Inverted Card", "AI Marketplace", "Segmented Control", "Mobile Responsive", "Clean UI"], "prompt": "Modern AI SaaS web application pricing page and agent marketplace directory, clean warm porcelain white background, four pricing tier cards with the 'Pro' card inverted in sleek dark charcoal with 'Most Popular' badge, feature checklists with check icons, bottom grid of AI agent cards with creator avatars and star ratings, responsive mobile phone mockup on the right, pristine UI design, Figma community showcase, 8k --ar 16:9 --v 6.1 --style raw", "brief": "# Design Brief: Enterprise AI SaaS Pricing & Marketplace\n\n## 1. Project Concept & Visual Direction\n- **Style:** Modern Refined SaaS (Linear / Vercel design standard)\n- **Target Feel:** Professional, frictionless, transparent, credible, scalable\n- **Atmosphere:** Clean porcelain surfaces, razor-sharp typography, zero clutter\n\n## 2. Layout & Architecture\n- **Pricing Grid:** 4-column responsive grid transitioning into a vertical swipeable stack on mobile\n- **Inversion Anchor:** The recommended 'Pro' tier is styled with `#111827` background and white type to command primary conversion\n- **Toggle:** Segmented pill toggle with active pill indicator and percentage discount badge\n\n## 3. Color System\n- Canvas: `#F8F7F4` (Porcelain Warm Grey)\n- Normal Cards: `#FFFFFF` with 1px border `#E5E7EB`\n- Inverted Card: `#111827` (Deep Obsidian)\n- Accent Rating: `#F59E0B` (Amber star)\n- Secondary Badges: `#F3F4F6` with `#374151` text\n\n## 4. Typography Hierarchy\n- Prices: Inter 36px Bold with `/month` suffix in 14px regular\n- Card Titles: 18px SemiBold\n- Feature Lists: 14px Regular with 6px gap and micro checkmark icons\n\n## 5. Components & Features\n- Direct CTA buttons with hover color inversion\n- Agent directory cards featuring creator avatars, user ratings, and instant 'Go' launcher buttons."}, {"id": "insp-10", "filename": "6048402886351327841.jpg", "title": "AI Agents Desktop Marketplace Directory", "categoryId": "refined-modern-saas", "categoryName": "Refined Modern SaaS & Micro-Bento", "subStyle": "Desktop Viewport with Full Feature Matrices and Agent Cards", "summary": "Full desktop viewport of the AI Agents marketplace showcasing navigation headers, pricing tier matrices, and the complete agent grid.", "breakdown": {"style": "Refined Modern SaaS Directory", "composition": "Top global navigation bar, centered pricing matrix, followed by a filterable directory of AI agent cards (Buyer Persona, LinkedIn Post, Domain Idea).", "colorPalette": ["#F8F7F4", "#FFFFFF", "#111827", "#E5E7EB", "#6B7280"], "typography": "High-density clean UI typography with search bar hotkeys (`⌘K`), sorting dropdowns, and rating indicators.", "lighting": "Even, glare-free digital surface illumination.", "techniques": "Keyboard shortcut hints (`⌘K`), card categorization pills (`Paid`, `Premium`, `Free`), creator social attribution."}, "keywords": ["AI Directory", "Marketplace UI", "Keyboard Shortcuts", "Search Bar", "Filter Pills", "Desktop Web App", "Porcelain Theme"], "prompt": "Full desktop web application screenshot for AI Agent marketplace, top navigation bar with user avatar and search bar with command-K hotkey, four-tier subscription pricing cards with dark mode Pro highlight, horizontal tab filter for agents, five agent cards with category icons, star ratings and author names, clean porcelain UI, modern frontend design --ar 16:9 --v 6.1", "brief": "# Design Brief: AI Tool Directory & Subscription Architecture\n\n## 1. Directory System & Features\n- Global search with live autocomplete and keyboard shortcut (`⌘K`)\n- Status pills (`Free`, `Paid`, `Premium`) with subtle border styling\n- Dynamic sorting by popularity, rating, and recent releases."}, {"id": "insp-11", "filename": "6048402886351327842.jpg", "title": "Bloom Ethereal 3D Dreamscape Healthcare", "categoryId": "ethereal-3d-dreamscape", "categoryName": "Ethereal 3D Dreamscape & Soft Tactile Nature", "subStyle": "Fuzzy Velvet Hills & Reflective River for Mental Wellness", "summary": "Serene mental health platform hero featuring fuzzy lilac and peach grassy hills, a tranquil winding stream, and framed viewport design.", "breakdown": {"style": "Ethereal 3D Dreamscape & Soft Tactile Nature", "composition": "Central winding reflective stream flanked by fuzzy velvet hills of lilac and apricot grass under a soft misty pastel sky, framed inside a rounded browser viewport.", "colorPalette": ["#9B72CF", "#F5A66B", "#C8B6FF", "#F7ECE1", "#FFFFFF"], "typography": "Gentle, approachable geometric sans-serif ('Grow through what you go through') paired with classic serif brand logo ('Bloom').", "lighting": "Diffused atmospheric morning mist with gentle global illumination highlighting the soft tactile fur/velvet textures.", "techniques": "Tactile particle hair shading on 3D terrain, floating browser window with soft blurred background, pill consultation CTA button."}, "keywords": ["Bloom", "Mental Health UI", "3D Landscape", "Velvet Grass", "Ethereal Pastel", "Tactile Fur", "Serene Stream", "Floating Viewport", "Wellness Design"], "prompt": "Modern mental wellness clinic website hero 'Bloom by Phenomenon Studio', whimsical ethereal 3D landscape with winding reflective river, hills covered in ultra-soft fuzzy velvet grass in lilac purple and apricot peach hues, dreamy morning mist sky, floating rounded browser viewport framed with soft background blur, clean white modern typography 'Grow through what you go through', pill button 'Book Consultation', Unreal Engine 5 render, cinematic lighting, peaceful and comforting --ar 16:9 --v 6.1 --style raw", "brief": "# Design Brief: Mental Wellness Ethereal 3D Experience\n\n## 1. Project Concept & Visual Direction\n- **Style:** Ethereal 3D Tactile Dreamscape\n- **Target Feel:** Peaceful, grounding, nurturing, destigmatizing, hopeful\n- **Atmosphere:** A tranquil sensory sanctuary with tactile fur-like terrain and reflective waters\n\n## 2. Layout & Architecture\n- **Viewport Framing:** Floating browser canvas with rounded corners (`border-radius: 28px`) surrounded by ambient glass blur\n- **Content Alignment:** Centered headline and supportive subtitle, anchored by a prominent pill CTA\n- **Header:** Translucent floating navigation bar (`Services`, `Resources`, `About us`, `Book Consultation`)\n\n## 3. Color System\n- Lilac Velvet: `#9B72CF`\n- Warm Apricot: `#F5A66B`\n- Misty Sky: `#C8B6FF`\n- River Water: `#8590AA` with sky reflections\n- Text Primary: `#FFFFFF` / Dark Mode Accents: `#372549`\n\n## 4. Typography Hierarchy\n- Brand Logo: Editorial Serif (Playfair or Bodoni) 24px\n- Hero Headline: Plus Jakarta Sans or Sora SemiBold 52px\n- Subtitle: Inter Regular 18px / 1.6\n\n## 5. UI Elements & Tactile Physics\n- Pill CTA with circular arrow badge\n- Interactive 3D scene (Spline or Three.js) with gentle wind ripple animations across the grass shader."}, {"id": "insp-12", "filename": "6048402886351327843.jpg", "title": "AI Agents Responsive Desktop & Mobile Split", "categoryId": "refined-modern-saas", "categoryName": "Refined Modern SaaS & Micro-Bento", "subStyle": "Side-by-Side Responsive Breakdown", "summary": "Dual presentation demonstrating responsive adaptation from multi-column desktop grid to vertical mobile feed for modern SaaS.", "breakdown": {"style": "Refined Modern SaaS (Responsive)", "composition": "Side-by-side comparison illustrating desktop multi-tier pricing table collapsing gracefully into a focused single-column mobile flow.", "colorPalette": ["#F8F7F4", "#FFFFFF", "#111827", "#E5E7EB"], "typography": "Optimized responsive type scaling preserving legibility on both 1440px desktop screens and 390px mobile viewports.", "lighting": "Clean, flat porcelain digital environment.", "techniques": "Mobile navigation drawer toggle, dynamic card collapsing, full-width thumb-friendly CTA buttons."}, "keywords": ["Responsive Design", "Mobile Layout", "Desktop vs Mobile", "SaaS Pricing", "Adaptive Bento", "Porcelain"], "prompt": "Side-by-side UI presentation of modern web app on desktop and mobile smartphone, AI agent marketplace with clean porcelain theme, responsive layout transitions, polished typography, Figma design mockup --ar 16:9 --v 6.1", "brief": "# Design Brief: Responsive Architecture Guidelines\n\n## 1. Breakpoint Specifications\n- Desktop (1024px+): 4-column pricing cards with horizontal agent rows\n- Mobile (<768px): Vertical stacked cards with sticky checkout CTA."}, {"id": "insp-13", "filename": "6048402886351327844.jpg", "title": "Playful Pastel Bento EdTech Dashboard", "categoryId": "playful-pastel-bento", "categoryName": "Soft Playful Pastel Bento & EdTech", "subStyle": "Color-Coded Learning Modules with Stacked Bar Analytics", "summary": "Inviting education dashboard featuring pastel color-coded course cards, left icon navigation bar, and right user analytics sidebar.", "breakdown": {"style": "Soft Playful Pastel Bento & EdTech", "composition": "Three-column dashboard layout: slim left icon rail, wide central curriculum grid with pastel bento cards, and right personal progress sidebar.", "colorPalette": ["#FFD6D6", "#FFE6C9", "#D8E2FE", "#D5F5E3", "#1F2937"], "typography": "Friendly rounded sans-serif ('Invest in your education') with clean course titles and star ratings.", "lighting": "Flat pastel tones with ultra-soft ambient card shadows.", "techniques": "Pastel color categorization (Coral for Tech, Peach for Business, Blue for Media, Mint for Design), pill filter buttons, stacked bar chart."}, "keywords": ["Pastel Bento", "EdTech Dashboard", "Curriculum Grid", "Icon Rail", "Activity Chart", "Rounded Cards", "Playful UI", "Student Portal"], "prompt": "Modern playful EdTech web dashboard 'Invest in your education', light mint background, rounded pastel cards in soft peach, lavender blue, mint green and coral pink, left icon navigation sidebar, right user profile with weekly activity bar chart and friends list, course rating badges, friendly modern typography, clean approachable UI design, Dribbble popular --ar 16:9 --v 6.1 --style raw", "brief": "# Design Brief: Playful Pastel EdTech Dashboard\n\n## 1. Project Concept & Visual Direction\n- **Style:** Soft Playful Pastel Bento\n- **Target Feel:** Encouraging, delightful, organized, accessible, motivating\n- **Atmosphere:** Bright morning desk, pastel sticky notes, playful progress tracking\n\n## 2. Layout & Architecture\n- **Structure:** 3-column app layout (64px left nav rail, fluid center grid, 320px right widget panel)\n- **Bento Modules:** 2x2 grid of pastel course cards with 20px rounded corners\n- **Category Filter Rail:** Horizontal pill tags (`All`, `IT & Software`, `Business`, `Design`)\n\n## 3. Color System\n- Background Canvas: `#EBF8F2` (Soft Mint Tint)\n- Card Coral: `#FFD6D6` (IT & Software)\n- Card Peach: `#FFE6C9` (Business & Writing)\n- Card Periwinkle: `#D8E2FE` (Media Training)\n- Card Sage: `#D5F5E3` (Interior & Design)\n- Text Primary: `#1F2937`\n\n## 4. Typography Hierarchy\n- Dashboard Title: Quicksand or Poppins Bold 36px\n- Card Titles: Poppins SemiBold 18px\n- Metadata & Stats: Inter 13px with rating star badges\n\n## 5. Interactive Components\n- Stacked multi-color weekly activity chart (`3.5h - Great result!`)\n- Friend avatar clusters with online presence indicators."}, {"id": "insp-14", "filename": "6048402886351327845.jpg", "title": "Square Card Fintech Orbital Infographics", "categoryId": "neo-fintech-minimal", "categoryName": "Neo-Fintech Minimal & High-Voltage Accents", "subStyle": "Stark Layout with Orbital Trajectory Constellation Charts", "summary": "Minimalist banking landing page section featuring electric lime accents, card features, and a complex circular orbital data chart.", "breakdown": {"style": "Neo-Fintech Minimal & High-Voltage Accents", "composition": "Asymmetrical two-column feature section: left-aligned feature checklist with numbered lime badges; right-aligned orbital planetary trajectory diagram.", "colorPalette": ["#FFFFFF", "#000000", "#D4F024", "#8B5CF6", "#F3F4F6"], "typography": "High-contrast Swiss sans-serif typography with headline 'What Features Make Our Bank Card Distinctive And Popular?'.", "lighting": "Crisp digital contrast with no ambient lighting.", "techniques": "Concentric dotted orbital charts, electric chartreuse highlight pill badges, curved scalloped black footer section."}, "keywords": ["Fintech", "Orbital Chart", "Electric Lime", "Constellation", "Square Card", "Numbered Badges", "Swiss Banking", "Scalloped Footer"], "prompt": "Modern minimalist fintech website feature section, stark white background, crisp black typography 'What Features Make Our Bank Card Distinctive', electric lime-yellow numbered circular badges, intricate circular orbital planetary data diagram with dotted lines and purple accents, curved black footer with newsletter input, high contrast Swiss graphic design, Behance award --ar 16:9 --v 6.1 --style raw", "brief": "# Design Brief: Neo-Fintech Data Visualization Page\n\n## 1. Project Concept & Visual Direction\n- **Style:** High-Voltage Neo-Fintech Minimal\n- **Target Feel:** High-velocity, revolutionary, transparent, mathematically precise\n- **Atmosphere:** Clean white paper energized by high-voltage neon chartreuse and orbital physics\n\n## 2. Layout & Architecture\n- **Content Split:** 45% left textual arguments and feature matrix / 55% right orbital constellation infographic\n- **Footer Transition:** Dramatic organic scalloped black wave dividing content from footer navigation\n\n## 3. Color System\n- Canvas: `#FFFFFF`\n- Electric Lime: `#D4F024` (High-voltage brand accent)\n- Ink: `#000000` (Carbon Black)\n- Digital Purple: `#8B5CF6`\n- Subdued Surface: `#F9FAFB`\n\n## 4. Typography Hierarchy\n- Section Headings: Neue Haas Grotesk or Satoshi Bold 40px\n- List Items: 15px Regular with 28px circular lime number indicators (`1`, `2`, `3`)\n\n## 5. Data Visualization Components\n- SVG orbital motion diagram with revolving concentric circles and particle trajectories."}, {"id": "insp-15", "filename": "6048402886351327846.jpg", "title": "Square Card Pixel Dispersion Hero Page", "categoryId": "neo-fintech-minimal", "categoryName": "Neo-Fintech Minimal & High-Voltage Accents", "subStyle": "Floating 3D Card Disintegrating into Digital Pixel Fragments", "summary": "Full landing page for Square Card featuring a floating black card breaking apart into purple and lime green pixel particles.", "breakdown": {"style": "Neo-Fintech Minimal with Pixel Dispersion", "composition": "Expansive vertical scroll: hero with floating pixelating bank card, partner logos, 4-tier service overview, feature list, and black footer.", "colorPalette": ["#FFFFFF", "#000000", "#D4F024", "#A855F7", "#E5E7EB"], "typography": "Swiss-style neo-grotesque sans-serif with bold headline 'A Modern Bank Card For A Modern World'.", "lighting": "Clean directional studio drop shadow on the floating card, luminous pixel fragments.", "techniques": "Pixel particle dispersion effect, wireframe security diagrams, abstract connection flows, bold lime button CTAs."}, "keywords": ["Pixel Dispersion", "Square Card", "Floating 3D Card", "Fintech Hero", "Contactless Payment", "Electric Lime", "Digital Fragments", "Landing Page"], "prompt": "Complete landing page design for modern fintech company 'Square Card', clean white aesthetic, hero section with floating black titanium bank card dramatically disintegrating into digital purple and neon lime-yellow square pixel particles, partner logos, minimal abstract diagrams for encryption and speed, electric chartreuse CTA button 'Explore More', Swiss typography 'A Modern Bank Card For A Modern World', high end web design --ar 9:16 --v 6.1 --style raw", "brief": "# Design Brief: Kinetic Pixel Dispersion Banking Hero\n\n## 1. Project Concept & Visual Direction\n- **Style:** Kinetic Pixel Dispersion Neo-Fintech\n- **Target Feel:** Frictionless, borderless, instant, digital-native finance\n- **Hero Centerpiece:** A black titanium payment card whose lower half dissolves into floating digital square pixels."}, {"id": "insp-16", "filename": "6048402886351327847.jpg", "title": "Square Card Dual Device Showcase", "categoryId": "neo-fintech-minimal", "categoryName": "Neo-Fintech Minimal & High-Voltage Accents", "subStyle": "Desktop and Mobile Viewport Mockup", "summary": "Side-by-side showcase of Square Card illustrating how the pixel dispersion hero reflows into a mobile smartphone screen.", "breakdown": {"style": "Neo-Fintech Responsive Layout", "composition": "Desktop browser card on the left paired with an iPhone frame on the right against a soft lavender-tinted presentation canvas.", "colorPalette": ["#E8E6F0", "#FFFFFF", "#000000", "#D4F024", "#8B5CF6"], "typography": "Unified typographic scale maintaining consistent branding across both screen sizes.", "lighting": "Realistic soft drop shadows on both device frames.", "techniques": "Device framing, soft presentation canvas, responsive pixel cloud scaling."}, "keywords": ["Dual Device", "Responsive Showcase", "Mobile Mockup", "Desktop Frame", "Fintech Presentation", "Lavender Canvas"], "prompt": "Side-by-side desktop and mobile mockups for fintech website 'Square Card', clean white landing page, floating pixelated credit card hero, soft muted lavender-grey background, realistic device shadows, professional Figma presentation --ar 16:9 --v 6.1", "brief": "# Design Brief: Multi-Device Presentation Template\n\n## 1. Layout Guidelines\n- Present desktop and mobile viewports with synchronized visual assets\n- Maintain pixel fragment density on mobile viewports without obscuring text."}, {"id": "insp-17", "filename": "6048402886351327848.jpg", "title": "Square Card Perspective Grid Spread", "categoryId": "neo-fintech-minimal", "categoryName": "Neo-Fintech Minimal & High-Voltage Accents", "subStyle": "Dynamic Isometric Multi-Screen Portfolio Display", "summary": "Angled isometric multi-screen spread displaying the entire Square Card design system and modular component pages.", "breakdown": {"style": "Isometric Design System Presentation", "composition": "Tilted 3D perspective grid of multiple overlapping web screens demonstrating the depth and consistency of the UI kit.", "colorPalette": ["#E8E6F0", "#FFFFFF", "#000000", "#D4F024", "#8B5CF6"], "typography": "High-contrast headings visible at dynamic angles.", "lighting": "Uniform isometric studio lighting.", "techniques": "3D perspective transformation, overlapping card elevations, multi-view consistency."}, "keywords": ["Isometric Mockup", "Design System", "Perspective Spread", "Multi-Screen", "Fintech Portfolio", "UI Kit Showcase"], "prompt": "Isometric 3D perspective spread of multiple floating website screens for fintech banking platform, clean white cards with electric lime accents, overlapping layered UI screens at a dynamic angle, soft studio lighting, Behance design showcase --ar 16:9 --v 6.1", "brief": "# Design Brief: Isometric Multi-Screen Presentation\n\n## 1. Portfolio Staging\n- Isometric angle showcase demonstrating UI modularity and cross-page consistency."}, {"id": "insp-18", "filename": "6048402886351327849.jpg", "title": "Square Card Angled Hero Mockup", "categoryId": "neo-fintech-minimal", "categoryName": "Neo-Fintech Minimal & High-Voltage Accents", "subStyle": "Angled Hero Card with Spatial Perspective", "summary": "Close-up perspective mockup emphasizing the pixel dispersion card, typography, and clean white layout.", "breakdown": {"style": "Angled Spatial Showcase", "composition": "Foreground hero screen tilted at an angle, revealing the feature cards and orbital diagrams on the secondary layer.", "colorPalette": ["#FFFFFF", "#000000", "#D4F024", "#8B5CF6", "#E8E6F0"], "typography": "Crisp serif-like clarity rendered through bold Swiss grotesk typography.", "lighting": "Spatial elevation casting gentle drop shadows onto the base canvas.", "techniques": "Depth of field focus on hero typography and floating pixel card."}, "keywords": ["Angled Hero", "Spatial Depth", "Fintech Branding", "Pixel Card", "Electric Lime", "Portfolio Crop"], "prompt": "Angled perspective mockup of fintech website hero section, floating bank card dissolving into pixels, crisp typography 'A Modern Bank Card For A Modern World', soft pastel presentation backdrop, high-end design agency showcase --ar 16:9 --v 6.1", "brief": "# Design Brief: High-Impact Editorial Hero Staging\n\n## 1. Spatial Framing\n- Emphasize hero card depth using subtle CSS 3D transforms (`transform: perspective(1000px) rotateY(-5deg)`)."}, {"id": "insp-19", "filename": "6048402886351327850.jpg", "title": "Gothic Alt Aesthetic High-Contrast Portrait", "categoryId": "subcultural-alt-aesthetic", "categoryName": "Subcultural Alt Aesthetic & Character Styling", "subStyle": "Modern Gothic E-Girl Aesthetic with Gold Chain Hardware", "summary": "Expressive portrait photography featuring bold black styling, gold chain hardware, dark cherry earrings, and dramatic contrast.", "breakdown": {"style": "Subcultural Alt Aesthetic & Character Styling", "composition": "Intimate medium portrait with asymmetrical hand-to-face gesture, strong diagonal line from arm to jawline.", "colorPalette": ["#000000", "#FFFFFF", "#B91C1C", "#F59E0B", "#FBCFE8"], "typography": "Associated with edgy editorial display fonts, Gothic serifs, or minimalist sans-serif personal branding.", "lighting": "Studio portrait lighting casting soft skin tones against deep black garment shadows, metallic specular highlights on gold chain.", "techniques": "High-contrast styling (black bikini top with gold chain clasp), cherry accessories, dramatic eyeliner wing and dark lip contrast."}, "keywords": ["Alt Aesthetic", "Gothic Glamour", "High Contrast", "Black Lipstick", "Gold Hardware", "Cherry Earrings", "Creator Brand", "Subcultural Portrait"], "prompt": "High-fashion editorial studio portrait of charismatic alternative woman with jet black hair with bangs, bold black winged eyeliner and black cherry lip, wearing black halter top with chunky gold chain clasp, subtle cherry earrings, soft studio ring lighting, pure clean grey wall background, 35mm film photography, crisp focal clarity, Vogue youth culture --ar 9:16 --v 6.1 --style raw", "brief": "# Design Brief: Dark Alternative Lifestyle Brand & Creator Identity\n\n## 1. Project Concept & Visual Direction\n- **Style:** Modern Gothic Glamour & Subcultural Editorial\n- **Target Feel:** Rebellious, alluring, unapologetic, fashion-forward\n- **Atmosphere:** High-contrast studio editorial, dark romance, bold tactile accessories\n\n## 2. Layout & Typography\n- **Canvas:** Pitch black or stark monochrome\n- **Type:** Sharp high-contrast serif (Editorial New, Migra, or Neue World)\n- **Accents:** Blood red and metallic gold highlights."}, {"id": "insp-20", "filename": "6046149716443074867.jpg", "title": "Dark Romantic Alt Aesthetic Bodysuit", "categoryId": "subcultural-alt-aesthetic", "categoryName": "Subcultural Alt Aesthetic & Character Styling", "subStyle": "Edgy Off-Shoulder Zip Bodysuit & Choppy Fringe", "summary": "Atmospheric subcultural fashion portrait featuring an off-shoulder black zip bodysuit, dark lip styling, and textured fringe.", "breakdown": {"style": "Dark Romantic Alt Aesthetic", "composition": "Centered portrait with off-shoulder black bodysuit framing the decolletage, textured bangs obscuring the eyes for mystery.", "colorPalette": ["#0A0A0A", "#FFFFFF", "#94A3B8", "#18181B", "#27272A"], "typography": "Evokes underground music album typography, dark indie editorial layouts, and subcultural zine aesthetics.", "lighting": "Gentle, diffused indoor room lighting with soft ambient pinkish-lavender wall tones.", "techniques": "Tactile silver metal zipper detail, off-shoulder sleeve drape, black lip contrast."}, "keywords": ["Dark Romantic", "Alt Fashion", "Zip Bodysuit", "Black Lipstick", "Choppy Bangs", "Subcultural Zine", "Indie Creator", "Moody Lighting"], "prompt": "Atmospheric fashion portrait of young alternative woman with layered black shaggy hair with bangs, dramatic dark lipstick and winged eyeliner, wearing off-the-shoulder black long-sleeve bodysuit with prominent silver zipper detail, soft moody ambient lighting, vintage film grain, authentic subcultural indie aesthetic --ar 9:16 --v 6.1 --style raw", "brief": "# Design Brief: Indie Subcultural Lookbook & Magazine\n\n## 1. Brand Atmosphere\n- Grungy yet refined dark aesthetic\n- Layered textures, silver hardware accents, and authentic underground attitude."}, {"id": "insp-21", "filename": "6048417119872946615.jpg", "title": "Cryptic Glyphic Symbolism Mobile UI", "categoryId": "minimalist-glyphic", "categoryName": "Minimalist Glyphic Symbolism & OLED Dark", "subStyle": "Expressive Question Mark Glyph with Terracotta Asterisk", "summary": "Extreme OLED dark minimalism with a hand-drawn white question mark glyph, terracotta asterisk medallion, and numeric coordinate telemetry.", "breakdown": {"style": "Minimalist Glyphic Symbolism & OLED Dark", "composition": "Radical vertical symmetry on pitch-black canvas: bold white question mark glyph anchoring the upper third, terracotta asterisk button in center, micro-coordinates above.", "colorPalette": ["#000000", "#FFFFFF", "#D96846", "#1F1F1F", "#3B82F6"], "typography": "Whimsical hand-drawn glyph geometry paired with micro-handwritten coordinate string ('287/1937/354') and standard mobile OS UI icons.", "lighting": "Zero ambient lighting; pure OLED black contrast with crisp white luminous vector shape.", "techniques": "Extreme negative space (95%+ black void), hand-drawn vector glyph, circular terracotta medallion accent."}, "keywords": ["OLED Dark", "Glyphic Minimalism", "Question Mark", "Asterisk Medallion", "Mobile Lockscreen", "Negative Space", "Cryptic UI", "Terracotta"], "prompt": "Extreme minimalist OLED smartphone lockscreen wallpaper design, pitch-black deep void background, bold expressive hand-drawn white question mark glyph in center, small handwritten numbers '287/1937/354' above, small circular terracotta-orange medallion with white 12-point asterisk flower icon below the dot, high contrast graphic design, cryptic philosophical art --ar 9:16 --v 6.1 --style raw", "brief": "# Design Brief: Cryptic Glyphic Mobile Experience\n\n## 1. Project Concept & Visual Direction\n- **Style:** Extreme Glyphic OLED Minimalism\n- **Target Feel:** Mysterious, provocative, contemplative, distraction-free\n- **Atmosphere:** Infinite void where a single symbol commands total contemplative thought\n\n## 2. Layout & Typography\n- **Canvas:** `#000000` (100% OLED black for power saving and pure contrast)\n- **Center Anchor:** Giant vector glyph acting as primary visual focus\n- **Telemetry:** Micro coordinate string in whimsical monospace."}]};
+
+    // State
+    let currentCategory = 'all';
+    let searchQuery = '';
+    let currentInspirationIndex = 0;
+    let filteredInspirations = [...APP_DATA.inspirations];
+    let currentTheme = localStorage.getItem('aesthetica_theme') || 'dark';
+
+    // Init Theme
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeButton();
+
+    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('aesthetica_theme', currentTheme);
+      updateThemeButton();
+    });
+
+    function updateThemeButton() {
+      const icon = document.getElementById('themeIcon');
+      const text = document.getElementById('themeText');
+      if (currentTheme === 'light') {
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        text.textContent = 'Dark';
+      } else {
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>';
+        text.textContent = 'Light';
+      }
+    }
+
+    // Build Category Pills
+    function renderCategoryPills() {
+      const container = document.getElementById('categoryFilterBar');
+      const existing = container.querySelectorAll('.filter-pill:not(:first-child)');
+      existing.forEach(e => e.remove());
+
+      APP_DATA.categories.forEach(cat => {
+        const count = APP_DATA.inspirations.filter(i => i.categoryId === cat.id).length;
+        const btn = document.createElement('button');
+        btn.className = 'filter-pill';
+        btn.dataset.category = cat.id;
+        btn.onclick = () => filterByCategory(cat.id);
+        btn.innerHTML = `${cat.name} <span class="filter-count">${count}</span>`;
+        container.appendChild(btn);
+      });
+      document.getElementById('totalCountBadge').textContent = APP_DATA.inspirations.length;
+    }
+
+    // Filter Inspirations
+    function filterByCategory(categoryId) {
+      currentCategory = categoryId;
+      document.querySelectorAll('.filter-pill').forEach(pill => {
+        if (categoryId === 'all') {
+          pill.classList.toggle('active', !pill.dataset.category);
+        } else {
+          pill.classList.toggle('active', pill.dataset.category === categoryId);
+        }
+      });
+
+      const catObj = APP_DATA.categories.find(c => c.id === categoryId);
+      if (categoryId === 'all') {
+        document.getElementById('currentViewTitle').textContent = 'All Visual References';
+        document.getElementById('currentViewSubtitle').textContent = `Showing ${APP_DATA.inspirations.length} categorized design references`;
+      } else if (catObj) {
+        document.getElementById('currentViewTitle').textContent = catObj.name;
+        document.getElementById('currentViewSubtitle').textContent = catObj.tagline;
+      }
+
+      applyFilters();
+    }
+
+    // Search input
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      applyFilters();
+    });
+
+    function applyFilters() {
+      filteredInspirations = APP_DATA.inspirations.filter(insp => {
+        const matchesCategory = (currentCategory === 'all') || (insp.categoryId === currentCategory);
+        if (!matchesCategory) return false;
+
+        if (!searchQuery) return true;
+        const matchTitle = insp.title.toLowerCase().includes(searchQuery);
+        const matchCat = insp.categoryName.toLowerCase().includes(searchQuery);
+        const matchSub = (insp.subStyle || '').toLowerCase().includes(searchQuery);
+        const matchSummary = (insp.summary || '').toLowerCase().includes(searchQuery);
+        const matchKeywords = (insp.keywords || []).some(k => k.toLowerCase().includes(searchQuery));
+        const matchPrompt = (insp.prompt || '').toLowerCase().includes(searchQuery);
+
+        return matchTitle || matchCat || matchSub || matchSummary || matchKeywords || matchPrompt;
+      });
+
+      renderGallery();
+    }
+
+    // Render Gallery
+    function renderGallery() {
+      const container = document.getElementById('galleryGrid');
+      const empty = document.getElementById('emptyState');
+      container.innerHTML = '';
+
+      if (filteredInspirations.length === 0) {
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      filteredInspirations.forEach((insp, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => openModal(insp.id);
+
+        const swatchesHtml = (insp.breakdown.colorPalette || []).slice(0, 5).map(hex => 
+          `<span class="color-swatch" style="background-color: ${hex}" title="${hex}" onclick="event.stopPropagation(); copyText('${hex}', 'Color hex ${hex} copied!')"></span>`
+        ).join('');
+
+        const tagsHtml = (insp.keywords || []).slice(0, 3).map(kw => 
+          `<span class="card-tag">${kw}</span>`
+        ).join('');
+
+        card.innerHTML = `
+          <div class="card-media-wrapper">
+            <span class="card-category-badge">${insp.categoryName}</span>
+            <img class="card-media" src="${insp.filename}" alt="${insp.title}" loading="lazy" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=${encodeURIComponent(insp.title)}'">
+            <div class="card-actions-overlay">
+              <button class="card-action-btn" onclick="event.stopPropagation(); openModal('${insp.id}', 'prompt')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                Prompt
+              </button>
+              <button class="card-action-btn" onclick="event.stopPropagation(); openModal('${insp.id}', 'brief')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg>
+                Brief
+              </button>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="card-title">${insp.title}</div>
+            <div class="card-substyle">${insp.subStyle || ''}</div>
+            <div class="card-summary">${insp.summary || ''}</div>
+            <div class="card-footer">
+              <div class="palette-swatches">${swatchesHtml}</div>
+              <div class="card-tags">${tagsHtml}</div>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    // Render Encyclopedia
+    function renderEncyclopedia() {
+      const container = document.getElementById('encyclopediaView');
+      container.innerHTML = '';
+
+      APP_DATA.categories.forEach(cat => {
+        const samples = APP_DATA.inspirations.filter(i => i.categoryId === cat.id);
+        const section = document.createElement('section');
+        section.className = 'style-section';
+        section.id = `style-${cat.id}`;
+
+        const paletteHtml = (cat.palette || []).map(hex => 
+          `<span class="color-swatch" style="width: 20px; height: 20px; background-color: ${hex}" title="${hex}" onclick="copyText('${hex}', 'Color hex ${hex} copied!')"></span>`
+        ).join('');
+
+        const featuresHtml = (cat.characteristics || []).map(c => `<li>${c}</li>`).join('');
+        const principlesHtml = (cat.principles || []).map(p => `<li>${p}</li>`).join('');
+        const vocabHtml = (cat.vocabulary || []).map(v => 
+          `<span class="vocab-chip" onclick="searchFor('${v}')">${v}</span>`
+        ).join('');
+
+        const thumbsHtml = samples.map(s => 
+          `<img class="style-sample-thumb" src="${s.filename}" alt="${s.title}" title="${s.title}" onclick="openModal('${s.id}')">`
+        ).join('');
+
+        section.innerHTML = `
+          <div class="style-section-header">
+            <div class="style-title-group">
+              <h3>${cat.name}</h3>
+              <div class="style-tagline">${cat.tagline}</div>
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <div class="palette-swatches" style="gap: 6px;">${paletteHtml}</div>
+              <button class="btn" onclick="filterByCategory('${cat.id}'); switchMainView('grid');">View ${samples.length} items</button>
+            </div>
+          </div>
+
+          <div class="style-grid-details">
+            <div class="style-col">
+              <h4>What It Is & Philosophy</h4>
+              <p>${cat.description}</p>
+              <h4>Why It Stands Out</h4>
+              <p>${cat.uniqueness}</p>
+              <h4>Associated Vocabulary & Terminology</h4>
+              <div class="vocab-chips">${vocabHtml}</div>
+            </div>
+
+            <div class="style-col">
+              <h4>Visual Characteristics</h4>
+              <ul class="feature-list" style="margin-bottom: 16px;">${featuresHtml}</ul>
+
+              <h4>Underlying Design Principles</h4>
+              <ul class="feature-list">${principlesHtml}</ul>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="font-size: 11px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; font-family: var(--font-mono);">Curated References in Library:</h4>
+            <div class="style-samples-row">${thumbsHtml}</div>
+          </div>
+        `;
+
+        container.appendChild(section);
+      });
+    }
+
+    function searchFor(term) {
+      document.getElementById('searchInput').value = term;
+      searchQuery = term.toLowerCase();
+      switchMainView('grid');
+      applyFilters();
+    }
+
+    // View Switching
+    function switchMainView(view) {
+      const grid = document.getElementById('galleryGrid');
+      const empty = document.getElementById('emptyState');
+      const enc = document.getElementById('encyclopediaView');
+      const btnGrid = document.getElementById('viewGridBtn');
+      const btnEnc = document.getElementById('viewEncyclopediaBtn');
+
+      if (view === 'grid') {
+        grid.style.display = 'grid';
+        enc.classList.remove('active');
+        btnGrid.classList.add('active');
+        btnEnc.classList.remove('active');
+        applyFilters();
+      } else {
+        grid.style.display = 'none';
+        empty.style.display = 'none';
+        enc.classList.add('active');
+        btnGrid.classList.remove('active');
+        btnEnc.classList.add('active');
+      }
+    }
+
+    document.getElementById('openStyleGuideBtn').addEventListener('click', () => {
+      switchMainView('encyclopedia');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Modal Operations
+    function openModal(inspId, defaultTab = 'breakdown') {
+      const insp = APP_DATA.inspirations.find(i => i.id === inspId);
+      if (!insp) return;
+
+      currentInspirationIndex = filteredInspirations.findIndex(i => i.id === inspId);
+      if (currentInspirationIndex === -1) {
+        currentInspirationIndex = APP_DATA.inspirations.findIndex(i => i.id === inspId);
+      }
+
+      document.getElementById('modalTitle').textContent = insp.title;
+      document.getElementById('modalCategoryBadge').textContent = insp.categoryName;
+      document.getElementById('modalSubStyle').textContent = insp.subStyle || '';
+      document.getElementById('modalFilename').textContent = insp.filename;
+      
+      const img = document.getElementById('modalImage');
+      img.src = insp.filename;
+      img.classList.remove('zoomed');
+
+      // Breakdown Info
+      document.getElementById('modalStyleDesc').textContent = insp.breakdown.style;
+      document.getElementById('modalComposition').textContent = insp.breakdown.composition;
+      document.getElementById('modalLighting').textContent = insp.breakdown.lighting;
+      document.getElementById('modalTypography').textContent = insp.breakdown.typography;
+      document.getElementById('modalTechniques').textContent = insp.breakdown.techniques;
+
+      // Color Palette
+      const paletteContainer = document.getElementById('modalPaletteGrid');
+      paletteContainer.innerHTML = '';
+      (insp.breakdown.colorPalette || []).forEach(hex => {
+        const item = document.createElement('div');
+        item.className = 'palette-item';
+        item.onclick = () => copyText(hex, `Hex color ${hex} copied!`);
+        item.innerHTML = `
+          <span class="palette-color-box" style="background-color: ${hex}"></span>
+          <span class="palette-hex">${hex}</span>
+        `;
+        paletteContainer.appendChild(item);
+      });
+
+      // Keywords
+      const keywordsContainer = document.getElementById('modalKeywordsGrid');
+      keywordsContainer.innerHTML = '';
+      (insp.keywords || []).forEach(kw => {
+        const chip = document.createElement('span');
+        chip.className = 'vocab-chip';
+        chip.textContent = kw;
+        chip.onclick = () => {
+          closeModal();
+          searchFor(kw);
+        };
+        keywordsContainer.appendChild(chip);
+      });
+
+      // Prompt
+      document.getElementById('modalPromptText').textContent = insp.prompt;
+      document.getElementById('promptCharCount').textContent = `${insp.prompt.length} characters`;
+
+      // Brief
+      document.getElementById('modalBriefText').textContent = insp.brief;
+
+      switchModalTab(defaultTab);
+
+      const modal = document.getElementById('modalBackdrop');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('modalBackdrop');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    document.getElementById('modalBackdrop').addEventListener('click', (e) => {
+      if (e.target.id === 'modalBackdrop') closeModal();
+    });
+
+    // Image Zoom toggle
+    document.getElementById('modalImage').addEventListener('click', function() {
+      this.classList.toggle('zoomed');
+    });
+
+    // Modal Tabs
+    function switchModalTab(tab) {
+      const tabs = ['breakdown', 'prompt', 'brief'];
+      const buttons = document.querySelectorAll('.modal-tab-btn');
+      tabs.forEach((t, i) => {
+        const content = document.getElementById(`tabContent${t.charAt(0).toUpperCase() + t.slice(1)}`);
+        const isActive = (t === tab);
+        if (content) content.style.display = isActive ? 'flex' : 'none';
+        if (buttons[i]) buttons[i].classList.toggle('active', isActive);
+      });
+    }
+
+    // Modal Navigation
+    function navigateModal(direction) {
+      if (filteredInspirations.length <= 1) return;
+      currentInspirationIndex = (currentInspirationIndex + direction + filteredInspirations.length) % filteredInspirations.length;
+      openModal(filteredInspirations[currentInspirationIndex].id);
+    }
+    document.getElementById('prevInspBtn').addEventListener('click', () => navigateModal(-1));
+    document.getElementById('nextInspBtn').addEventListener('click', () => navigateModal(1));
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      const modalActive = document.getElementById('modalBackdrop').classList.contains('active');
+      if (e.key === 'Escape' && modalActive) {
+        closeModal();
+      } else if (modalActive && e.key === 'ArrowLeft') {
+        navigateModal(-1);
+      } else if (modalActive && e.key === 'ArrowRight') {
+        navigateModal(1);
+      } else if (!modalActive && (e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('searchInput').focus();
+      }
+    });
+
+    // Copy Utilities
+    function copyText(text, successMsg) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => fallbackCopy(text, successMsg));
+      } else {
+        fallbackCopy(text, successMsg);
+      }
+    }
+
+    function fallbackCopy(text, successMsg) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg);
+      } catch (err) {
+        alert('Could not copy to clipboard. Please copy manually.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function copyCurrentPrompt() {
+      const insp = filteredInspirations[currentInspirationIndex] || APP_DATA.inspirations[0];
+      copyText(insp.prompt, 'AI Image Prompt copied to clipboard!');
+    }
+
+    function copyCurrentBrief() {
+      const insp = filteredInspirations[currentInspirationIndex] || APP_DATA.inspirations[0];
+      copyText(insp.brief, 'Complete Design Brief copied to clipboard!');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+
+    // Initial Render
+    renderCategoryPills();
+    renderGallery();
+    renderEncyclopedia();
+  </script>
+</body>
+</html>
